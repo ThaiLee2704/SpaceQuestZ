@@ -6,20 +6,17 @@ public class ParallaxBackground : MonoBehaviour
     [SerializeField] private float moveSpeed;
     float imageWidthInGame;
 
+    [SerializeField] float playerBoostSpeed;
+
     private void Awake()
     {
         Sprite sprite = GetComponent<SpriteRenderer>().sprite;
         imageWidthInGame = sprite.texture.width / sprite.pixelsPerUnit;
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
-        var playerBoostSpeed = GameManager.Instant.Player.BoostSpeed;
+        playerBoostSpeed = GameManager.Instant.Player.BoostSpeed;
 
         float moveX = moveSpeed * playerBoostSpeed * Time.deltaTime;
         transform.position += new Vector3(moveX, 0);

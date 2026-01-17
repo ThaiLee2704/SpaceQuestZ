@@ -1,21 +1,39 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-//[RequireComponent(typeof(PCInput))]
+[RequireComponent(typeof(PlayerEnergy))]
+[RequireComponent(typeof(IPlayerInput))]
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private IPlayerInput input;
+    public IPlayerInput Input => input;
+    [SerializeField] private bool isPlayerBoosting;
+    public bool IsPlayerBoosting
+    {
+        get => isPlayerBoosting;
+        set => isPlayerBoosting = value;
+    }
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float boostSpeed = 1f;
     public float BoostSpeed => boostSpeed;
 
+    // (Tuỳ chọn) Ngưỡng năng lượng tối thiểu để boost
+    [SerializeField] private float minEnergyToBoost = 0.2f;
+
+    // Tham chiếu năng lượng để quyết định boost
+    [SerializeField] private PlayerEnergy playerEnergy;
+
+    // Cờ chặn boost cho đến khi người chơi thả phím Space
+    private bool blockedBoostUntilRelease;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<IPlayerInput>();
+        playerEnergy = GetComponent<PlayerEnergy>();
 
         if (input == null)
             Debug.LogWarning($"{nameof(PlayerController)}: No PlayerInput found on {gameObject.name}");
@@ -24,6 +42,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (input == null) return;
+
         HandleMovement();
         HandleBoosting();
     }
@@ -38,7 +57,32 @@ public class PlayerController : MonoBehaviour
     #region Boosting
     private void HandleBoosting()
     {
-        if (input.IsBoosting)
+        // Quyết định isPlayerBoosting dựa trên ý muốn (Nhấn Space) + đủ năng lượng
+        bool wantsBoost = input.IsBoostingButtonDown;
+        bool hasEnergy = playerEnergy.CurrentEnergy >= minEnergyToBoost;
+
+        // Nếu đang giữ Space mà hết năng lượng => chặn boost cho đến khi thả Space
+        if (wantsBoost && !hasEnergy)
+        {
+            blockedBoostUntilRelease = true;
+            isPlayerBoosting = false;
+            ExitBoost();
+            return;
+        }
+
+        // Nếu người chơi thả Space => bỏ chặn, cho phép nhấn lại để boost
+        if (!wantsBoost && blockedBoostUntilRelease)
+        {
+            blockedBoostUntilRelease = false;
+        }
+
+        // Chỉ cho boost khi:
+        // - người chơi đang muốn boost (wantsBoost)
+        // - đủ năng lượng (hasEnergy)
+        // - không bị chặn do chưa thả phím (boostBlockedUntilRelease == false)
+        isPlayerBoosting = wantsBoost && hasEnergy && !blockedBoostUntilRelease;
+
+        if (isPlayerBoosting)
             EnterBoost();
         else
             ExitBoost();

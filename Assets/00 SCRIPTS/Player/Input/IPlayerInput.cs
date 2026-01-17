@@ -6,7 +6,7 @@ public interface IPlayerInput
     float DirectionX { get; }
     float DirectionY { get; }
 
-    bool IsBoosting { get; }
+    bool IsBoostingButtonDown { get; }
 }
 
 //Trong thực tế chúng ta có rất nhiều kiểu Input như: PCInput, MobileInput, BotInput,...
@@ -21,3 +21,12 @@ public interface IPlayerInput
 //Interface giúp PlayerController không quan tâm đến Input đến từ đâu mà vẫn dùng Output luôn
 
 //=> Interface = PlayerController chỉ cần biết cần gì, không cần biết ai cung cấp
+
+//public class PlayerInputBase 
+//{
+//    protected virtual Vector2 Direction { get; }
+//    protected virtual float DirectionX { get; }
+//    protected virtual float DirectionY { get; }
+
+//    protected virtual bool IsBoosting { get; }
+//}

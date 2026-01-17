@@ -4,4 +4,5 @@ public class CONSTANT
 {
     public static string ANIMATION_MOVE_X = "moveX";
     public static string ANIMATION_MOVE_Y = "moveY";
+    public static string ANIMATION_BOOSTING = "boosting";
 }
