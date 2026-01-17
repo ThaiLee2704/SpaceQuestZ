@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float minEnergyToBoost = 0.2f;
 
     // Tham chiếu năng lượng để quyết định boost
-    [SerializeField] private PlayerEnergy playerEnergy;
+    private PlayerEnergy playerEnergy;
 
     // Cờ chặn boost cho đến khi người chơi thả phím Space
     private bool blockedBoostUntilRelease;

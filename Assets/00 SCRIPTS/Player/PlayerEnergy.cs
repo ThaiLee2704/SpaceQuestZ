@@ -16,6 +16,7 @@ public class PlayerEnergy : MonoBehaviour
         player = GetComponent<PlayerController>();
 
         energy = maxEnergy;
+        GameManager.Instant.UIManager.UpdateEnergySlider(energy, maxEnergy);
     }
 
     // Update is called once per frame
@@ -35,5 +36,7 @@ public class PlayerEnergy : MonoBehaviour
                 energy += energyRegen;
             }
         }
+
+        GameManager.Instant.UIManager.UpdateEnergySlider(energy, maxEnergy);
     }
 }
