@@ -6,7 +6,7 @@ public interface IPlayerInput
     float DirectionX { get; }
     float DirectionY { get; }
 
-    bool IsBoostingButtonDown { get; }
+    bool IsBoostButtonDown { get; }
 }
 
 //Trong thực tế chúng ta có rất nhiều kiểu Input như: PCInput, MobileInput, BotInput,...

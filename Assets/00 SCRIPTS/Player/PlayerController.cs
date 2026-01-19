@@ -18,12 +18,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float boostSpeed = 1f;
-    public float BoostSpeed => boostSpeed;
+    public float BoostSpeed
+    {
+        get => boostSpeed;
+        set => boostSpeed = value;
+    }
 
-    // (Tuỳ chọn) Ngưỡng năng lượng tối thiểu để boost
     [SerializeField] private float minEnergyToBoost = 0.2f;
-
-    // Tham chiếu năng lượng để quyết định boost
     private PlayerEnergy playerEnergy;
 
     // Cờ chặn boost cho đến khi người chơi thả phím Space
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
     private void HandleBoosting()
     {
         // Quyết định isPlayerBoosting dựa trên ý muốn (Nhấn Space) + đủ năng lượng
-        bool wantsBoost = input.IsBoostingButtonDown;
+        bool wantsBoost = input.IsBoostButtonDown;
         bool hasEnergy = playerEnergy.CurrentEnergy >= minEnergyToBoost;
 
         // Nếu đang giữ Space mà hết năng lượng => chặn boost cho đến khi thả Space

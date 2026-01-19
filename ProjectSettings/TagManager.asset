@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -11,9 +12,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - LevelBoundaries
+  - Player
+  - Obstacle
   - 
   - 
   - 
@@ -43,6 +44,9 @@ TagManager:
     locked: 0
   - name: BG
     uniqueID: 3655973489
+    locked: 0
+  - name: Object
+    uniqueID: 3109195045
     locked: 0
   - name: Player
     uniqueID: 3889034641
