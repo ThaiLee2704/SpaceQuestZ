@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerEnergy))]
@@ -9,26 +10,21 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private IPlayerInput input;
     public IPlayerInput Input => input;
-    [SerializeField] private bool isPlayerBoosting;
-    public bool IsPlayerBoosting
-    {
-        get => isPlayerBoosting;
-        set => isPlayerBoosting = value;
-    }
 
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float boostSpeed = 1f;
-    public float BoostSpeed
-    {
-        get => boostSpeed;
-        set => boostSpeed = value;
-    }
+    [SerializeField] private float boostMultiplier = 5f;
 
     [SerializeField] private float minEnergyToBoost = 0.2f;
     private PlayerEnergy playerEnergy;
+    
+    [SerializeField] private bool isPlayerBoosting;
+    public bool IsPlayerBoosting => isPlayerBoosting;
+    public float BoostSpeed => isPlayerBoosting ? boostMultiplier : 1f;
 
     // Cờ chặn boost cho đến khi người chơi thả phím Space
     private bool blockedBoostUntilRelease;
+
+    public event Action<bool> OnBoostChanged;
 
     private void Awake()
     {
@@ -66,8 +62,7 @@ public class PlayerController : MonoBehaviour
         if (wantsBoost && !hasEnergy)
         {
             blockedBoostUntilRelease = true;
-            isPlayerBoosting = false;
-            ExitBoost();
+            ForceStopBoost();
             return;
         }
 
@@ -81,22 +76,23 @@ public class PlayerController : MonoBehaviour
         // - người chơi đang muốn boost (wantsBoost)
         // - đủ năng lượng (hasEnergy)
         // - không bị chặn do chưa thả phím (boostBlockedUntilRelease == false)
-        isPlayerBoosting = wantsBoost && hasEnergy && !blockedBoostUntilRelease;
+        bool newBoostState = wantsBoost && hasEnergy && !blockedBoostUntilRelease;
+        if (newBoostState != isPlayerBoosting)
+        {
+            isPlayerBoosting = newBoostState;
+            OnBoostChanged?.Invoke(isPlayerBoosting);
+        }
+    }
 
+    public void ForceStopBoost()
+    {
         if (isPlayerBoosting)
-            EnterBoost();
-        else
-            ExitBoost();
-    }
+        {
+            isPlayerBoosting = false;
+            OnBoostChanged?.Invoke(false);
+        }
 
-    private void EnterBoost()
-    {
-        boostSpeed = 5f;
-    }
-
-    private void ExitBoost()
-    {
-        boostSpeed = 1f;
+        blockedBoostUntilRelease = true;
     }
     #endregion
 }

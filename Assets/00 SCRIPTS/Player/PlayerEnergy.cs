@@ -5,8 +5,9 @@ public class PlayerEnergy : MonoBehaviour
     private PlayerController player;
 
     [SerializeField] private float energy;
-    [SerializeField] private float maxEnergy;
-    [SerializeField] private float energyRegen;
+    [SerializeField] private float maxEnergy = 50f;
+    [SerializeField] private float energyRegen = 0.2f;
+    [SerializeField] private float energyConsumptionPerSecond = 0.2f;
 
     public float CurrentEnergy => energy;
 
@@ -22,18 +23,21 @@ public class PlayerEnergy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (player.IsPlayerBoosting)
+        if (player != null && player.IsPlayerBoosting)
         {
-            if (energy >= 0.2f) 
-                energy -= 0.2f;
-            else
-                player.IsPlayerBoosting = false;
+            energy -= energyConsumptionPerSecond;
+            if (energy <= 0f)
+            {
+                energy = 0f;
+                player.ForceStopBoost();
+            }
         }
         else
         {
             if (energy < maxEnergy)
             {
                 energy += energyRegen;
+                if (energy > maxEnergy) energy = maxEnergy;
             }
         }
 

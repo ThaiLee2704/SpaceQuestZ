@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
         UIManager.Instant.UpdateHealthSlider(health, maxHealth);
         if (health <= 0)
         {
-            player.BoostSpeed = 1f;
+            player.ForceStopBoost();
             this.gameObject.SetActive(false);
         }
 
