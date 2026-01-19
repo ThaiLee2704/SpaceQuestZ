@@ -28,15 +28,15 @@ namespace ObserverTest
     {
         private void Start()
         {
-            Observer.AddListener(CONSTANT.INVOKE_ACTION_TAKE_DAMAGE, OnTakeDamageFX);
+            Observer.AddListener(CONSTANT.INVOKE_ACTION_TAKE_DAMAGE, TakeDamageFX);
         }
 
         private void OnDestroy()
         {
-            Observer.RemoveListener(CONSTANT.INVOKE_ACTION_TAKE_DAMAGE, OnTakeDamageFX);
+            Observer.RemoveListener(CONSTANT.INVOKE_ACTION_TAKE_DAMAGE, TakeDamageFX);
         }
 
-        void OnTakeDamageFX(object[] datas)
+        void TakeDamageFX(object[] datas)
         {
             Debug.Log("Phat FX bi danh");
         }

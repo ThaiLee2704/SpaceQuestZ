@@ -28,15 +28,15 @@ namespace ObserverTest
     {
         private void Start()
         {
-            Observer.AddListener(CONSTANT.INVOKE_ACTION_TAKE_DAMAGE, OnUpdateHealthSlider);
+            Observer.AddListener(CONSTANT.INVOKE_ACTION_TAKE_DAMAGE, UpdateHealthSlider);
         }
 
         private void OnDestroy()
         {
-            Observer.RemoveListener(CONSTANT.INVOKE_ACTION_TAKE_DAMAGE, OnUpdateHealthSlider);
+            Observer.RemoveListener(CONSTANT.INVOKE_ACTION_TAKE_DAMAGE, UpdateHealthSlider);
         }
 
-        void OnUpdateHealthSlider(object[] datas)
+        void UpdateHealthSlider(object[] datas)
         {
             Debug.Log($"Thay doi UI thanh mau: {datas[0]} / {datas[1]}");
         }

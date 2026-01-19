@@ -24,8 +24,6 @@ public class PlayerController : MonoBehaviour
     // Cờ chặn boost cho đến khi người chơi thả phím Space
     private bool blockedBoostUntilRelease;
 
-    public event Action<bool> OnBoostChanged;
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -80,7 +78,6 @@ public class PlayerController : MonoBehaviour
         if (newBoostState != isPlayerBoosting)
         {
             isPlayerBoosting = newBoostState;
-            OnBoostChanged?.Invoke(isPlayerBoosting);
         }
     }
 
@@ -89,7 +86,6 @@ public class PlayerController : MonoBehaviour
         if (isPlayerBoosting)
         {
             isPlayerBoosting = false;
-            OnBoostChanged?.Invoke(false);
         }
 
         blockedBoostUntilRelease = true;

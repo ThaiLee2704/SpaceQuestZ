@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -28,8 +28,12 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0)
         {
             player.ForceStopBoost();
-            this.gameObject.SetActive(false);
-        }
 
+            //Thông báo cho các Listener như PlayerVFX,PlayerSFX,...là player đã chết
+            Observer.Notify("playerDeath", null);
+
+            this.gameObject.SetActive(false);
+
+        }
     }
 }
