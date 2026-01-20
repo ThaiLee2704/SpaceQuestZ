@@ -6,12 +6,12 @@ public class PlayerVFX : MonoBehaviour
 
     private void Start()
     {
-        Observer.AddListener("playerDeath",playDeathEffect);
+        Observer.AddListener(CONSTANT.OBSERVER_PLAYERDEATH,playDeathEffect);
     }
 
     private void OnDestroy()
     {
-        Observer.RemoveListener("playerDeath", playDeathEffect);
+        Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERDEATH, playDeathEffect);
     }
 
     void playDeathEffect(object[] datas)

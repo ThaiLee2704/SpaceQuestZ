@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +6,6 @@ public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private Slider energySlider;
     [SerializeField] private TMP_Text energyText;
-    
     [SerializeField] private Slider healthSlider;
     [SerializeField] private TMP_Text healthText;
 

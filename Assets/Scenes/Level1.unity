@@ -1271,7 +1271,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
   moveSpeed: -1
-  playerBoostSpeed: 0
 --- !u!212 &812385792
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1343,6 +1342,7 @@ GameObject:
   - component: {fileID: 885883611}
   - component: {fileID: 885883614}
   - component: {fileID: 885883617}
+  - component: {fileID: 885883618}
   - component: {fileID: 885883610}
   - component: {fileID: 885883616}
   m_Layer: 7
@@ -1391,10 +1391,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4feb50746a5a3964ab03722d52c5b200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  isPlayerBoosting: 0
   moveSpeed: 3.5
-  boostSpeed: 1
+  boostMultiplier: 5
   minEnergyToBoost: 1
+  isPlayerBoosting: 0
 --- !u!4 &885883612
 Transform:
   m_ObjectHideFlags: 0
@@ -1426,6 +1426,7 @@ MonoBehaviour:
   energy: 0
   maxEnergy: 50
   energyRegen: 0.2
+  energyConsumptionPerSecond: 0.2
 --- !u!114 &885883615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1488,6 +1489,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   health: 0
   maxHealth: 5
+--- !u!114 &885883618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885883609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e263e4271fa36f14da0918c05c671423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVFX
+  deathEffect: {fileID: 7079054075385887125, guid: 805ddea14b458dd468a0e895ed5af5fe, type: 3}
 --- !u!1 &1107273385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,7 +1532,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   player: {fileID: 885883611}
-  uIManager: {fileID: 150820893}
   worldSpeed: 2
 --- !u!4 &1107273387
 Transform:
@@ -1581,7 +1594,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
   moveSpeed: -0.1
-  playerBoostSpeed: 0
 --- !u!212 &1140539025
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1686,7 +1698,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
   moveSpeed: -0.5
-  playerBoostSpeed: 0
 --- !u!212 &1212993811
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2421,7 +2432,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxBackground
   moveSpeed: -2.3
-  playerBoostSpeed: 0
 --- !u!212 &2012535214
 SpriteRenderer:
   m_ObjectHideFlags: 0

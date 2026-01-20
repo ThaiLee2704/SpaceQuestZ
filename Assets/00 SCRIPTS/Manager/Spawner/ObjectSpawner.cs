@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectSpawner : MonoBehaviour
@@ -8,6 +8,17 @@ public class ObjectSpawner : MonoBehaviour
 
     [SerializeField] private int waveNumber;
     [SerializeField] private List<Wave> waves;
+
+    //Cách 1: Nested Class: khai báo class dạng như 1 struct để dễ nhìn khi code
+    [System.Serializable]
+    public class Wave
+    {
+        public GameObject prefabs;
+        public float spawnTimer;
+        public float spawnInterval;
+        public int objectsPerWave;
+        public int spawnedObjectCount;
+    }
 
     private void Update()
     {

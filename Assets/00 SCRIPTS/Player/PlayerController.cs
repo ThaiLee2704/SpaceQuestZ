@@ -19,7 +19,11 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private bool isPlayerBoosting;
     public bool IsPlayerBoosting => isPlayerBoosting;
-    public float BoostSpeed => isPlayerBoosting ? boostMultiplier : 1f;
+
+    // Trạng thái chết
+    [SerializeField] private bool isDead;
+
+    public float BoostSpeed => isDead ? 0f : (isPlayerBoosting ? boostMultiplier : 1f);
 
     // Cờ chặn boost cho đến khi người chơi thả phím Space
     private bool blockedBoostUntilRelease;
@@ -45,6 +49,12 @@ public class PlayerController : MonoBehaviour
     #region Movement
     private void HandleMovement()
     {
+        if (isDead)
+        { 
+            rb.linearVelocity = Vector2.zero; 
+            return; 
+        }
+
         rb.linearVelocity = input.Direction * moveSpeed;    //.linearVelocity là chuẩn hóa mới cơ bản ko khác gì .velocity
     }
     #endregion
@@ -52,8 +62,14 @@ public class PlayerController : MonoBehaviour
     #region Boosting
     private void HandleBoosting()
     {
+        if (isDead)
+        {
+            ForceStopBoost();
+            return;
+        }
+
         // Quyết định isPlayerBoosting dựa trên ý muốn (Nhấn Space) + đủ năng lượng
-        bool wantsBoost = input.IsBoostButtonDown;
+        bool wantsBoost = input.IsBoostBtnDown;
         bool hasEnergy = playerEnergy.CurrentEnergy >= minEnergyToBoost;
 
         // Nếu đang giữ Space mà hết năng lượng => chặn boost cho đến khi thả Space
@@ -91,4 +107,11 @@ public class PlayerController : MonoBehaviour
         blockedBoostUntilRelease = true;
     }
     #endregion
+
+    public void OnDeath()
+    {
+        isDead = true;
+        ForceStopBoost();
+        rb.linearVelocity = Vector2.zero;
+    }
 }

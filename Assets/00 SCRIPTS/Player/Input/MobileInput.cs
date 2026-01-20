@@ -5,8 +5,7 @@ public class MobileInput : MonoBehaviour, IPlayerInput
     public Vector2 Direction {  get; private set; }
     public float DirectionX => Direction.x;
     public float DirectionY => Direction.y;
-    public bool IsBoostButtonDown { get; private set; }
-
+    public bool IsBoostBtnDown { get; private set; }
 
     void Update()
     {

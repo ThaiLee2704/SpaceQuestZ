@@ -5,7 +5,7 @@ public class PCInput : MonoBehaviour, IPlayerInput
     public Vector2 Direction { get; private set; }
     public float DirectionX => Direction.x;
     public float DirectionY => Direction.y;
-    public bool IsBoostButtonDown { get; private set; }
+    public bool IsBoostBtnDown { get; private set; }
 
 
     void Update()
@@ -15,9 +15,8 @@ public class PCInput : MonoBehaviour, IPlayerInput
         Direction = new Vector2(x, y).normalized;
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire2"))
-            IsBoostButtonDown = true;
+            IsBoostBtnDown = true;
         else if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire2"))
-            IsBoostButtonDown = false;
-
+            IsBoostBtnDown = false;
     }
 }

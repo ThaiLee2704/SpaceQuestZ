@@ -27,9 +27,9 @@ public class PlayerHealth : MonoBehaviour
         UIManager.Instant.UpdateHealthSlider(health, maxHealth);
         if (health <= 0)
         {
-            player.ForceStopBoost();
+            player.OnDeath();
 
-            //Thông báo cho các Listener như PlayerVFX,PlayerSFX,...là player đã chết
+            //Thông báo cho các Listener như PlayerVFX,PlayerSFX,GameOverSence...là player đã chết
             Observer.Notify("playerDeath", null);
 
             this.gameObject.SetActive(false);
