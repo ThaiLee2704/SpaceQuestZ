@@ -9,6 +9,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Slider healthSlider;
     [SerializeField] private TMP_Text healthText;
 
+    [SerializeField] private GameObject pausePanel;
+
     public void UpdateEnergySlider(float current, float max)
     {
         energySlider.maxValue = max;
@@ -21,5 +23,19 @@ public class UIManager : Singleton<UIManager>
         healthSlider.maxValue = max;
         healthSlider.value = Mathf.RoundToInt(current);
         healthText.text = healthSlider.value + "/" + healthSlider.maxValue;
+    }
+
+    public void PausePanel()
+    {
+        if (pausePanel.activeSelf == false)
+        {
+            pausePanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            pausePanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
     }
 }

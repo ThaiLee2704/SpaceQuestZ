@@ -2,8 +2,9 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(PlayerEnergy))]
 [RequireComponent(typeof(IPlayerInput))]
+[RequireComponent(typeof(PlayerEnergy))]
+[RequireComponent(typeof(PlayerHealth))]
 
 public class PlayerController : MonoBehaviour
 {

@@ -2,21 +2,29 @@ using UnityEngine;
 
 public class PCInput : MonoBehaviour, IPlayerInput
 {
-    public Vector2 Direction { get; private set; }
+    public Vector2 Direction 
+    { 
+        get
+        {
+            float x = Input.GetAxisRaw("Horizontal"); 
+            float y = Input.GetAxisRaw("Vertical");
+            return new Vector2(x, y).normalized;
+        }
+    }
     public float DirectionX => Direction.x;
     public float DirectionY => Direction.y;
-    public bool IsBoostBtnDown { get; private set; }
-
-
-    void Update()
-    {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        Direction = new Vector2(x, y).normalized;
-
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire2"))
-            IsBoostBtnDown = true;
-        else if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Fire2"))
-            IsBoostBtnDown = false;
+    public bool IsBoostBtnDown 
+    { 
+        get
+        {
+            return Input.GetKey(KeyCode.Space) || Input.GetButton("Fire2");
+        }
+    }
+    public bool IsPausePressed 
+    { 
+        get
+        {
+            return Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape);
+        }
     }
 }
