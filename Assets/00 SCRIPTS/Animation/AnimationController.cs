@@ -27,8 +27,12 @@ public class AnimationController : MonoBehaviour
     void Update()
     {
         if (input == null) return;
-        animator.SetFloat(MoveX, input.DirectionX);
-        animator.SetFloat(MoveY, input.DirectionY);
-        animator.SetBool(Boosting, GameManager.Instant.Player.IsPlayerBoosting);
+
+        if (Time.timeScale > 0)
+        {
+            animator.SetFloat(MoveX, input.DirectionX);
+            animator.SetFloat(MoveY, input.DirectionY);
+            animator.SetBool(Boosting, GameManager.Instant.Player.IsPlayerBoosting);
+        }
     }
 }

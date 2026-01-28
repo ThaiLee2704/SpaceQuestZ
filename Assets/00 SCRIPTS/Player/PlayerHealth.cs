@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour
         player = GetComponent<PlayerController>();
 
         health = maxHealth;
-        UIManager.Instant.UpdateHealthSlider(health, maxHealth);
+        HUDManager.Instant.UpdateHealthSlider(health, maxHealth);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -24,7 +24,7 @@ public class PlayerHealth : MonoBehaviour
     private void TakeDamage(int damage)
     {
         health -= damage;
-        UIManager.Instant.UpdateHealthSlider(health, maxHealth);
+        HUDManager.Instant.UpdateHealthSlider(health, maxHealth);
         if (health <= 0)
         {
             player.OnDeath();

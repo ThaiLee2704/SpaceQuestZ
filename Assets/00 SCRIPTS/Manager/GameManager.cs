@@ -20,22 +20,33 @@ public class GameManager : Singleton<GameManager>
     // đều bị NullEx
 
     //Cách dùng Awake() (Sửa cả bên Singleton để cho kế thừa)
-    //protected override void Awake()
-    //{
-    //    base.Awake();
-    //    input = GetComponent<IPlayerInput>();
-    //}
+    protected override void Awake()
+    {
+        base.Awake();
+        input = GetComponent<IPlayerInput>();
+    }
 
     //Cách dùng Start()
-    private void Start()
+    //private void Start()
+    //{
+    //    input = GetComponent<IPlayerInput>();
+    //    Instantiate(level, this.transform.position, this.transform.rotation,this.transform);
+    //}
+
+    public void RegisterPlayer(PlayerController newPlayer)
     {
-        input = GetComponent<IPlayerInput>();
+        player = newPlayer;
+        Debug.Log("GameManager đã nhận diện được Player!");
     }
 
     private void Update()
     {
-        if (input.IsPausePressed)
-            UIManager.Instant.PausePanel();
+        PressPausePanel();
     }
 
+    private void PressPausePanel()
+    {
+        if (input.IsPausePressed)
+            UIManager.Instant.OnPauseClickedByKeyword();
+    }
 }

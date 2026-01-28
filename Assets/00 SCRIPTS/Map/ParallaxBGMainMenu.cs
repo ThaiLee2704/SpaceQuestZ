@@ -1,13 +1,11 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ParallaxBackground : ParallaxBGBase
+public class ParallaxBGMainMenu : ParallaxBGBase
 {
     protected override void Update()
     {
-        float playerBoostMultiplier = GameManager.Instant.Player.BoostSpeed;
-
-        float moveX = moveSpeed * playerBoostMultiplier * Time.deltaTime;
+        float moveX = moveSpeed * Time.deltaTime;
         transform.position += new Vector3(moveX, 0);
         if (Mathf.Abs(transform.position.x) - imageWidthInGame > 0)
             transform.position = new Vector3(0f, transform.position.y);

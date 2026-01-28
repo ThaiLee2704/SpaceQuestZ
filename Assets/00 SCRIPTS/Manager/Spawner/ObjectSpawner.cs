@@ -40,7 +40,7 @@ public class ObjectSpawner : MonoBehaviour
 
     private void SpawnObject()
     {
-        Instantiate(waves[waveNumber].prefabs, RandomSpawnPoint(), transform.rotation);
+        Instantiate(waves[waveNumber].prefabs, RandomSpawnPoint(), transform.rotation, this.transform);
         waves[waveNumber].spawnedObjectCount++;
     }
 

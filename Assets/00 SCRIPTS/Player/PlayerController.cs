@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float minEnergyToBoost = 0.2f;
     private PlayerEnergy playerEnergy;
-    
+
     [SerializeField] private bool isPlayerBoosting;
     public bool IsPlayerBoosting => isPlayerBoosting;
 
@@ -29,7 +29,13 @@ public class PlayerController : MonoBehaviour
     // Cờ chặn boost cho đến khi người chơi thả phím Space
     private bool blockedBoostUntilRelease;
 
-    private void Awake()
+    private void OnEnable()
+    {
+        //Môi khi clone level thì đăng ký PlayerController trong level đó cho GameManager
+        GameManager.Instant.RegisterPlayer(this);
+    }
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<IPlayerInput>();
@@ -43,17 +49,20 @@ public class PlayerController : MonoBehaviour
     {
         if (input == null) return;
 
-        HandleMovement();
-        HandleBoosting();
+        if (Time.timeScale > 0)
+        {
+            HandleMovement();
+            HandleBoosting();
+        }
     }
 
     #region Movement
     private void HandleMovement()
     {
         if (isDead)
-        { 
-            rb.linearVelocity = Vector2.zero; 
-            return; 
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
         }
 
         rb.linearVelocity = input.Direction * moveSpeed;    //.linearVelocity là chuẩn hóa mới cơ bản ko khác gì .velocity
