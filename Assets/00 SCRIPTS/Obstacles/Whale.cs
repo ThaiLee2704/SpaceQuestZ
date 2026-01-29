@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class Whale : ObstacleBase
 {
-    void Start()
-    {
-        
-    }
     void Update()
     {
         Movement();

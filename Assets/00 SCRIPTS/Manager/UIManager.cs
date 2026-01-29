@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,7 +9,9 @@ public enum PanelType
     LevelsPanel,
     SettingPanel,
     HelpPanel,
-    PausePanel
+    PausePanel,
+    GameOver,
+    GameWin
 }
 
 public class UIManager : Singleton<UIManager>
@@ -18,12 +21,20 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject settingPanel;
     [SerializeField] private GameObject helpPanel;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject gameWinPanel;
 
     private PanelType _panelToReturn;
 
     private void Start()
     {
         OpenPanel(PanelType.MainMenuPanel);
+        Observer.AddListener(CONSTANT.OBSERVER_PLAYERDEATH, OnGameOver);
+    }
+
+    private void OnDestroy()
+    {
+        Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERDEATH, OnGameOver);
     }
 
     public void HideAllPanel()
@@ -33,6 +44,8 @@ public class UIManager : Singleton<UIManager>
         settingPanel.SetActive(false);
         helpPanel.SetActive(false);
         pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        gameWinPanel.SetActive(false);
     }
 
     public void OpenPanel(PanelType type)
@@ -41,6 +54,8 @@ public class UIManager : Singleton<UIManager>
         settingPanel.SetActive(false);
         helpPanel.SetActive(false);
         pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        gameWinPanel.SetActive(false);
 
         switch (type)
         {
@@ -58,6 +73,12 @@ public class UIManager : Singleton<UIManager>
                 break;
             case PanelType.PausePanel:
                 pausePanel.SetActive(true);
+                break;
+            case PanelType.GameOver:
+                gameOverPanel.SetActive(true);
+                break;
+            case PanelType.GameWin:
+                gameWinPanel.SetActive(true);
                 break;
         }
     }
@@ -112,7 +133,6 @@ public class UIManager : Singleton<UIManager>
         // 3. Trả lại thời gian (để animation ở menu còn chạy nếu có)
         Time.timeScale = 1f;
     }
-
     public void OnBackClicked()
     {
         HideAllPanel();
@@ -127,6 +147,22 @@ public class UIManager : Singleton<UIManager>
         {
             mainMenuPanel.SetActive(true);
         }
+    }
+    private void OnGameOver(object[] datas)
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        StartCoroutine(ShowGameOverPanel());
+    }
+    IEnumerator ShowGameOverPanel()
+    {
+        yield return new WaitForSeconds(2);
+        OpenPanel(PanelType.GameOver);
+        LevelManager.Instant.DestroyCurrentLevel();
+    }
+    public void OnGameWin()
+    {
+        LevelManager.Instant.DestroyCurrentLevel();
+        OpenPanel(PanelType.GameWin);
     }
 
     //Xử lý PausePanel bằng Keyword
