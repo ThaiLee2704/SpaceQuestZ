@@ -25,6 +25,8 @@ public class PlayerHealth : MonoBehaviour
     {
         health -= damage;
         HUDManager.Instant.UpdateHealthSlider(health, maxHealth);
+        //Thông báo cho các Listener như PlayerVFX,PlayerSFX là player bị tấn công
+        Observer.Notify("playerHit", null);
         if (health <= 0)
         {
             player.OnDeath();

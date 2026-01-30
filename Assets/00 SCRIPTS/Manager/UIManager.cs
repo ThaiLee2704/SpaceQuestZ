@@ -24,7 +24,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject gameWinPanel;
 
-    private PanelType _panelToReturn;
+    private PanelType panelToReturn;
 
     private void Start()
     {
@@ -84,25 +84,25 @@ public class UIManager : Singleton<UIManager>
     }
     public void OnPlayGameClicked()
     {
-        _panelToReturn = PanelType.MainMenuPanel;
+        panelToReturn = PanelType.MainMenuPanel;
 
         OpenPanel(PanelType.LevelsPanel);
     }
     public void OnSettingOfMainMenuClicked()
     {
-        _panelToReturn = PanelType.MainMenuPanel;
+        panelToReturn = PanelType.MainMenuPanel;
 
         OpenPanel(PanelType.SettingPanel);
     }
     public void OnSettingOfPauseClicked()
     {
-        _panelToReturn = PanelType.PausePanel;
+        panelToReturn = PanelType.PausePanel;
 
         OpenPanel(PanelType.SettingPanel);
     }
     public void OnHelpClicked()
     {
-        _panelToReturn = PanelType.MainMenuPanel;
+        panelToReturn = PanelType.MainMenuPanel;
 
         OpenPanel(PanelType.HelpPanel);
     }
@@ -113,11 +113,13 @@ public class UIManager : Singleton<UIManager>
     }
     public void OnPauseClicked()
     {
+        AudioManager.Instant.PlayPauseSound();
         OpenPanel(PanelType.PausePanel);
         Time.timeScale = 0f;
     }
     public void OnResumeClicked()
     {
+        AudioManager.Instant.PlayUnpauseSound();
         HideAllPanel();
         Time.timeScale = 1f;
     }
@@ -135,22 +137,25 @@ public class UIManager : Singleton<UIManager>
     }
     public void OnBackClicked()
     {
-        HideAllPanel();
+        //HideAllPanel();
 
         // Kiểm tra xem cần quay về đâu
-        if (_panelToReturn == PanelType.PausePanel)
+        if (panelToReturn == PanelType.PausePanel)
         {
-            pausePanel.SetActive(true);
-            // Vẫn giữ TimeScale = 0
+            OpenPanel(PanelType.PausePanel);
         }
-        else if (_panelToReturn == PanelType.MainMenuPanel) // Giả sử bạn có logic này từ MainMenu
+        else if (panelToReturn == PanelType.MainMenuPanel) // Giả sử bạn có logic này từ MainMenu
         {
-            mainMenuPanel.SetActive(true);
+            if (levelsPanel.activeSelf)
+                levelsPanel.SetActive(false);
+            if (helpPanel.activeSelf)
+                helpPanel.SetActive(false);
+            if (settingPanel.activeSelf)
+                settingPanel.SetActive(false);
         }
     }
     private void OnGameOver(object[] datas)
     {
-        EventSystem.current.SetSelectedGameObject(null);
         StartCoroutine(ShowGameOverPanel());
     }
     IEnumerator ShowGameOverPanel()
@@ -168,21 +173,18 @@ public class UIManager : Singleton<UIManager>
     //Xử lý PausePanel bằng Keyword
     public void OnPauseClickedByKeyword()
     {
-        //Mỗi lần Active PausePanel thì các GO đang selected sẽ đặt về null
-        //Ví dụ như các button ở lần trước khi ấn vào sẽ thành selected và đổi
-        //màu qua màu selected.
-        EventSystem.current.SetSelectedGameObject(null);
-
         if (mainMenuPanel.activeSelf) return;
         if (settingPanel.activeSelf) return;
 
         if (pausePanel.activeSelf == false)
         {
+            AudioManager.Instant.PlayPauseSound();
             pausePanel.SetActive(true);
             Time.timeScale = 0f;
         }
         else
         {
+            AudioManager.Instant.PlayUnpauseSound();
             pausePanel.SetActive(false);
             Time.timeScale = 1f;
         }

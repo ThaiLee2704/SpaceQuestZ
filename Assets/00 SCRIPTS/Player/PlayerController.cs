@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isPlayerBoosting;
     public bool IsPlayerBoosting => isPlayerBoosting;
 
-    // Trạng thái chết
     [SerializeField] private bool isDead;
 
     public float BoostSpeed => isDead ? 0f : (isPlayerBoosting ? boostMultiplier : 1f);
@@ -78,11 +77,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // Quyết định isPlayerBoosting dựa trên ý muốn (Nhấn Space) + đủ năng lượng
         bool wantsBoost = input.IsBoostBtnDown;
         bool hasEnergy = playerEnergy.CurrentEnergy >= minEnergyToBoost;
 
-        // Nếu đang giữ Space mà hết năng lượng => chặn boost cho đến khi thả Space
         if (wantsBoost && !hasEnergy)
         {
             blockedBoostUntilRelease = true;
@@ -96,13 +93,17 @@ public class PlayerController : MonoBehaviour
             blockedBoostUntilRelease = false;
         }
 
-        // Chỉ cho boost khi:
-        // - người chơi đang muốn boost (wantsBoost)
-        // - đủ năng lượng (hasEnergy)
-        // - không bị chặn do chưa thả phím (boostBlockedUntilRelease == false)
+        //isPlayerBoosting là biến tạm để lưu trạng thái boost ở frame trước, khi trạng thái thay đổi
+        //tức là newBoostState thay đổi so với frame trước (isPlayerBoosting) thì chạy âm thanh boost
+        //sau đó lại gán trạng thái frame vừa rồi cho isPlayerBoosting rồi lại nhảy qua frame mới
         bool newBoostState = wantsBoost && hasEnergy && !blockedBoostUntilRelease;
         if (newBoostState != isPlayerBoosting)
         {
+            if (newBoostState)
+            {
+                AudioManager.Instant.PlayBoostSound();
+            }
+
             isPlayerBoosting = newBoostState;
         }
     }
