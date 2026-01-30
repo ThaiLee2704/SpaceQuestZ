@@ -693,6 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03e8c7b834772046b4645316fa57569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationController
+  hitMaterial: {fileID: 2100000, guid: 0358df976ed044e4295238b5916c2883, type: 2}
 --- !u!212 &8426485950746174735
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1453,7 +1454,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

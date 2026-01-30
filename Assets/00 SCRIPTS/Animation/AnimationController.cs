@@ -1,8 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class AnimationController : MonoBehaviour
 {
     private IPlayerInput input;
+
+    private Material defaulMaterial;
+    [SerializeField] Material hitMaterial;
+
     private Animator animator;
 
     private static readonly int MoveX = Animator.StringToHash(CONSTANT.ANIMATION_MOVE_X);
@@ -14,6 +19,7 @@ public class AnimationController : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        defaulMaterial = GetComponent<SpriteRenderer>().material;
     }
 
     private void Start()
@@ -22,6 +28,13 @@ public class AnimationController : MonoBehaviour
 
         if (input == null)
             Debug.LogWarning($"{nameof(AnimationController)}: No PlayerInput found on {gameObject.name}.");
+
+        Observer.AddListener(CONSTANT.OBSERVER_PLAYERHIT, OnChangeMaterialWhenHit);
+    }
+
+    private void OnDestroy()
+    {
+        Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERHIT, OnChangeMaterialWhenHit);
     }
 
     void Update()
@@ -34,5 +47,17 @@ public class AnimationController : MonoBehaviour
             animator.SetFloat(MoveY, input.DirectionY);
             animator.SetBool(Boosting, GameManager.Instant.Player.IsPlayerBoosting);
         }
+    }
+
+    private void OnChangeMaterialWhenHit(object[] datas)
+    {
+        this.GetComponent<SpriteRenderer>().material = hitMaterial;
+        StartCoroutine(ResetMaterial());
+    }
+
+    IEnumerator ResetMaterial()
+    {
+        yield return new WaitForSeconds(0.2f);
+        this.GetComponent <SpriteRenderer>().material = defaulMaterial;
     }
 }

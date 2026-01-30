@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Obstacle"))
+        if (collision.collider.CompareTag(CONSTANT.TAG_OBSTACLE))
             TakeDamage(1);
     }
 

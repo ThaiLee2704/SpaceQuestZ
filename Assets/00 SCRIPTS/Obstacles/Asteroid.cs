@@ -1,8 +1,13 @@
+using System.Collections;
 using UnityEngine;
 
 public class Asteroid : ObstacleBase
 {
     private SpriteRenderer spriteRenderer;
+
+    private Material defaulMaterial;
+    [SerializeField] Material hitMaterial;
+
     private Rigidbody2D rb;
 
     [SerializeField] private Sprite[] sprites;
@@ -11,6 +16,7 @@ public class Asteroid : ObstacleBase
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        defaulMaterial = spriteRenderer.material;
     }
 
     void Start()
@@ -34,5 +40,19 @@ public class Asteroid : ObstacleBase
         float pushY = Random.Range(-1f, 1f);
 
         rb.linearVelocity = new Vector2(pushX, pushY);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(CONSTANT.TAG_PLAYER))
+        {
+            spriteRenderer.material = hitMaterial;
+            StartCoroutine(ResetMaterial());
+        }
+    }
+    IEnumerator ResetMaterial()
+    {
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.material = defaulMaterial;
     }
 }

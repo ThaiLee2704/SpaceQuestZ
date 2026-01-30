@@ -8,6 +8,9 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioSource hit;
     [SerializeField] private AudioSource pause;
     [SerializeField] private AudioSource unpause;
+    [SerializeField] private AudioSource mainMenuSound;
+    [SerializeField] private AudioSource gameOverSound;
+    [SerializeField] private AudioSource gameWinSound;
 
     private void Start()
     {
@@ -24,7 +27,6 @@ public class AudioManager : Singleton<AudioManager>
     {
         PlaySource(boost);
     }
-
     public void PlayPauseSound()
     {
         PlaySource(pause);
@@ -40,6 +42,22 @@ public class AudioManager : Singleton<AudioManager>
     private void PlayDeathHit(object[] datas)
     {
         PlaySource(hit);
+    }
+    public void PlayMainMenuSound()
+    {
+        PlaySource(mainMenuSound);
+    }
+    public void StopMainMenuSound()
+    {
+        mainMenuSound.Stop();
+    }
+    public void PlayGameOverSound()
+    {
+        PlaySource(gameOverSound);
+    }
+    public void PlayGameWinSound()
+    {
+        PlaySource(gameWinSound);
     }
 
     private void PlaySource(AudioSource source)

@@ -29,6 +29,7 @@ public class UIManager : Singleton<UIManager>
     private void Start()
     {
         OpenPanel(PanelType.MainMenuPanel);
+
         Observer.AddListener(CONSTANT.OBSERVER_PLAYERDEATH, OnGameOver);
     }
 
@@ -86,6 +87,7 @@ public class UIManager : Singleton<UIManager>
     {
         panelToReturn = PanelType.MainMenuPanel;
 
+        AudioManager.Instant.StopMainMenuSound();
         OpenPanel(PanelType.LevelsPanel);
     }
     public void OnSettingOfMainMenuClicked()
@@ -137,8 +139,6 @@ public class UIManager : Singleton<UIManager>
     }
     public void OnBackClicked()
     {
-        //HideAllPanel();
-
         // Kiểm tra xem cần quay về đâu
         if (panelToReturn == PanelType.PausePanel)
         {
@@ -147,7 +147,10 @@ public class UIManager : Singleton<UIManager>
         else if (panelToReturn == PanelType.MainMenuPanel) // Giả sử bạn có logic này từ MainMenu
         {
             if (levelsPanel.activeSelf)
+            {
                 levelsPanel.SetActive(false);
+                AudioManager.Instant.PlayMainMenuSound();
+            }
             if (helpPanel.activeSelf)
                 helpPanel.SetActive(false);
             if (settingPanel.activeSelf)
@@ -161,12 +164,14 @@ public class UIManager : Singleton<UIManager>
     IEnumerator ShowGameOverPanel()
     {
         yield return new WaitForSeconds(2);
+        AudioManager.Instant.PlayGameOverSound();
         OpenPanel(PanelType.GameOver);
         LevelManager.Instant.DestroyCurrentLevel();
     }
     public void OnGameWin()
     {
         LevelManager.Instant.DestroyCurrentLevel();
+        AudioManager.Instant.PlayGameWinSound();
         OpenPanel(PanelType.GameWin);
     }
 
