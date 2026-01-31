@@ -27,4 +27,11 @@ public class PCInput : MonoBehaviour, IPlayerInput
             return Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape);
         }
     }
+    public bool IsFirePressed
+    {
+        get
+        {
+            return Input.GetKey(KeyCode.RightShift) || Input.GetButton("Fire1");
+        }
+    }
 }

@@ -8,5 +8,6 @@ public class MobileInput : MonoBehaviour, IPlayerInput
     public float DirectionY => Direction.y;
     public bool IsBoostBtnDown { get; private set; }
     public bool IsPausePressed { get; private set; }
+    public bool IsFirePressed {  get; private set; }
 
 }

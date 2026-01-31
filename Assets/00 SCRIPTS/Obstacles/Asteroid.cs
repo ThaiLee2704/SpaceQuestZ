@@ -44,7 +44,7 @@ public class Asteroid : ObstacleBase
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(CONSTANT.TAG_PLAYER))
+        if (collision.gameObject.CompareTag(CONSTANT.TAG_PLAYER) || collision.gameObject.CompareTag(CONSTANT.TAG_BULLET))
         {
             spriteRenderer.material = hitMaterial;
             StartCoroutine(ResetMaterial());

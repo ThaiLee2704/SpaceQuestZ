@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
         {
             HandleMovement();
             HandleBoosting();
+            HandleFireBullet();
         }
     }
 
@@ -117,6 +119,16 @@ public class PlayerController : MonoBehaviour
 
         blockedBoostUntilRelease = true;
     }
+    #endregion
+
+    #region Fire Bullet
+    private void HandleFireBullet()
+    {
+        bool wantsFire = input.IsFirePressed;
+        if (wantsFire)
+            PhaserWeapon.Instant.Shoot();
+    }
+
     #endregion
 
     public void OnDeath()
