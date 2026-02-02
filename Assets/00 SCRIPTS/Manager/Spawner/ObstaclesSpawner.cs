@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectSpawner : MonoBehaviour
+public class ObstaclesSpawner : MonoBehaviour
 {
     [SerializeField] private Transform minPos;
     [SerializeField] private Transform maxPos;
@@ -40,7 +40,9 @@ public class ObjectSpawner : MonoBehaviour
 
     private void SpawnObject()
     {
-        Instantiate(waves[waveNumber].prefabs, RandomSpawnPoint(), transform.rotation, this.transform);
+        GameObject obstacle = ObjectPooling.Instant.GetObject(waves[waveNumber].prefabs, this.transform);
+        obstacle.transform.position = RandomSpawnPoint();
+        obstacle.SetActive(true);
         waves[waveNumber].spawnedObjectCount++;
     }
 

@@ -27,9 +27,6 @@ public class Asteroid : ObstacleBase
     void Update()
     {
         Movement();
-
-        if (transform.position.x < -12f)
-            Destroy(this.gameObject);
     }
 
     void InitAsteroid()

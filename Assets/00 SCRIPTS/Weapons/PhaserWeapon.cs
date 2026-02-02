@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PhaserWeapon : Singleton<PhaserWeapon>
 {
@@ -7,16 +7,29 @@ public class PhaserWeapon : Singleton<PhaserWeapon>
     public float speed;
     public int damage;
 
-    private float timeCount = 0.3f;
-    private float timer = 0;
+    [SerializeField] private float attackSpeed = 0.3f;
+    [SerializeField] private float nextFireTime = 0;
+
+    private Transform bulletContainer;
+
+    private void Start()
+    {
+        GameObject go = new GameObject("-----BULLET CONTAINER-----");
+        bulletContainer = go.transform;
+    }
 
     public void Shoot()
     {
-        timer += Time.deltaTime;
-        if (timer > timeCount)
+        if (Time.time >= nextFireTime)  //Thời gian hiện tại lớn hơn thời gian cho lần bắn tiếp theo thì cho bắn
         {
-            Instantiate(prefabs, transform.position, Quaternion.identity);
-            timer = 0;
-        }    
+            nextFireTime = Time.time + attackSpeed; //Bắn 1 cái thì tính được tg cho lần bắn tiếp theo bằng cách lấy tg hiện tại + attackSpeed
+
+            GameObject bullet = ObjectPooling.Instant.GetObject(prefabs, bulletContainer);
+            if (bullet != null)
+            {
+                bullet.transform.position = transform.position;
+                bullet.SetActive(true);
+            }
+        }
     }
 }
