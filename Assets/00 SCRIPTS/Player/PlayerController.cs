@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         {
             if (newBoostState)
             {
-                AudioManager.Instant.PlayBoostSound();
+                Observer.Notify("playerBoost", null);
             }
 
             isPlayerBoosting = newBoostState;

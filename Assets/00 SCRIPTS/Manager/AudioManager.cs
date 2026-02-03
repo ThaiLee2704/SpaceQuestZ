@@ -16,14 +16,16 @@ public class AudioManager : Singleton<AudioManager>
     {
         Observer.AddListener(CONSTANT.OBSERVER_PLAYERDEATH, PlayDeathSound);
         Observer.AddListener(CONSTANT.OBSERVER_PLAYERHIT, PlayDeathHit);
+        Observer.AddListener(CONSTANT.OBSERVER_PLAYERBOOST, PlayBoostSound);
     }
 
     private void OnDestroy()
     {
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERDEATH, PlayDeathSound);
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERHIT, PlayDeathHit);
+        Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERBOOST, PlayBoostSound);
     }
-    public void PlayBoostSound()
+    private void PlayBoostSound(object[] datas)
     {
         PlaySource(boost);
     }

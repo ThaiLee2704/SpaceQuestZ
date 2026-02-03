@@ -12,4 +12,5 @@ public class CONSTANT
 
     public static string OBSERVER_PLAYERDEATH = "playerDeath";
     public static string OBSERVER_PLAYERHIT = "playerHit";
+    public static string OBSERVER_PLAYERBOOST = "playerBoost";
 }
