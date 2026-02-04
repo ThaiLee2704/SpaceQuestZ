@@ -6148,9 +6148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhaserWeapon
   prefabs: {fileID: 5267289509958442951, guid: dcbb0403365c3d74599ca44a00cf9ed8, type: 3}
-  speed: 5
+  speed: 12
   damage: 1
-  attackSpeed: 0.3
+  attackSpeed: 0.2
   nextFireTime: 0
 --- !u!1 &6482849605307962204
 GameObject:

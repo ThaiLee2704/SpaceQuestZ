@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
     {
         bool wantsFire = input.IsFirePressed;
         if (wantsFire)
-            PhaserWeapon.Instant.Shoot();
+            PhaserWeapon.Instant.FireBullet();
     }
 
     #endregion

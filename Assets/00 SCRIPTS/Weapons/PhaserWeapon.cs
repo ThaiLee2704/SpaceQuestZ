@@ -10,15 +10,21 @@ public class PhaserWeapon : Singleton<PhaserWeapon>
     [SerializeField] private float attackSpeed = 0.3f;
     [SerializeField] private float nextFireTime = 0;
 
+    private GameObject go;
     private Transform bulletContainer;
 
     private void Start()
     {
-        GameObject go = new GameObject("-----BULLET CONTAINER-----");
+        go = new GameObject("-----BULLET CONTAINER-----");
         bulletContainer = go.transform;
     }
 
-    public void Shoot()
+    private void OnDestroy()
+    {
+        Destroy(go);
+    }
+
+    public void FireBullet()
     {
         if (Time.time >= nextFireTime)  //Thời gian hiện tại lớn hơn thời gian cho lần bắn tiếp theo thì cho bắn
         {
@@ -27,6 +33,7 @@ public class PhaserWeapon : Singleton<PhaserWeapon>
             GameObject bullet = ObjectPooling.Instant.GetObject(prefabs, bulletContainer);
             if (bullet != null)
             {
+                AudioManager.Instant.PlayFireBulletSound();
                 bullet.transform.position = transform.position;
                 bullet.SetActive(true);
             }

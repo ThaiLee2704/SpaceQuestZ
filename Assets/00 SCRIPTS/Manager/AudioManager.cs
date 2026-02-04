@@ -3,11 +3,17 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
+    [Header("Effect Game")]
     [SerializeField] private AudioSource death;
     [SerializeField] private AudioSource boost;
-    [SerializeField] private AudioSource hit;
+    [SerializeField] private AudioSource hitPlayer;
+    [SerializeField] private AudioSource destroyAsteroid;
+    [SerializeField] private AudioSource hitRock;
+    [SerializeField] private AudioSource fireBullet;
+    [Header("Effect UI")]
     [SerializeField] private AudioSource pause;
     [SerializeField] private AudioSource unpause;
+    [Header("Music")]
     [SerializeField] private AudioSource mainMenuSound;
     [SerializeField] private AudioSource gameOverSound;
     [SerializeField] private AudioSource gameWinSound;
@@ -15,15 +21,28 @@ public class AudioManager : Singleton<AudioManager>
     private void Start()
     {
         Observer.AddListener(CONSTANT.OBSERVER_PLAYERDEATH, PlayDeathSound);
-        Observer.AddListener(CONSTANT.OBSERVER_PLAYERHIT, PlayDeathHit);
+        Observer.AddListener(CONSTANT.OBSERVER_PLAYERHIT, PlayHitPlayerSound);
         Observer.AddListener(CONSTANT.OBSERVER_PLAYERBOOST, PlayBoostSound);
     }
 
     private void OnDestroy()
     {
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERDEATH, PlayDeathSound);
-        Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERHIT, PlayDeathHit);
+        Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERHIT, PlayHitPlayerSound);
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERBOOST, PlayBoostSound);
+    }
+    public void PlayFireBulletSound()
+    {
+        fireBullet.pitch = Random.Range(0.7f, 1.3f);
+        PlaySource(fireBullet);
+    }
+    public void PlayHitRockSound()
+    {
+        PlaySource(hitRock);
+    }
+    public void PlayDestroyAsteroidSound()
+    {
+        PlaySource(destroyAsteroid);
     }
     private void PlayBoostSound(object[] datas)
     {
@@ -41,9 +60,9 @@ public class AudioManager : Singleton<AudioManager>
     {
         PlaySource(death);
     }
-    private void PlayDeathHit(object[] datas)
+    private void PlayHitPlayerSound(object[] datas)
     {
-        PlaySource(hit);
+        PlaySource(hitPlayer);
     }
     public void PlayMainMenuSound()
     {
