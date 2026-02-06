@@ -10,6 +10,8 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioSource destroyAsteroid;
     [SerializeField] private AudioSource hitRock;
     [SerializeField] private AudioSource fireBullet;
+    [SerializeField] private AudioSource destroyCritter;
+    [SerializeField] private AudioSource burnedCritter;
     [Header("Effect UI")]
     [SerializeField] private AudioSource pause;
     [SerializeField] private AudioSource unpause;
@@ -30,6 +32,16 @@ public class AudioManager : Singleton<AudioManager>
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERDEATH, PlayDeathSound);
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERHIT, PlayHitPlayerSound);
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERBOOST, PlayBoostSound);
+    }
+    public void PlayBurnedCritterSound()
+    {
+        fireBullet.pitch = Random.Range(0.7f, 1.3f);
+        PlaySource(burnedCritter);
+    }
+    public void PlayDestroyCritterSound()
+    {
+        fireBullet.pitch = Random.Range(0.7f, 1.3f);
+        PlaySource(destroyCritter);
     }
     public void PlayFireBulletSound()
     {

@@ -4,6 +4,7 @@ public class CONSTANT
 {
     public static string TAG_PLAYER = "Player";
     public static string TAG_OBSTACLE = "Obstacle";
+    public static string TAG_CRITTER = "Critter";
     public static string TAG_BULLET = "Bullet";
 
     public static string ANIMATION_MOVE_X = "moveX";
