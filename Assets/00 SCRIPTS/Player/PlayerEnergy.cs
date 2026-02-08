@@ -6,8 +6,8 @@ public class PlayerEnergy : MonoBehaviour
 
     [SerializeField] private float energy;
     [SerializeField] private float maxEnergy = 50f;
-    [SerializeField] private float energyRegen = 0.2f;
-    [SerializeField] private float energyConsumptionPerSecond = 0.2f;
+    [SerializeField] private float energyRegen = 0.5f;
+    [SerializeField] private float energyConsumptionPerSecond = 0.5f;
 
     public float CurrentEnergy => energy;
 

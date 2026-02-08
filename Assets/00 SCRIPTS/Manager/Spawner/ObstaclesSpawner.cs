@@ -55,4 +55,11 @@ public class ObstaclesSpawner : MonoBehaviour
 
         return spawnPoint;
     }
+
+    public void SpawnBoss(GameObject boss)
+    {
+        GameObject boss1 = ObjectPooling.Instant.GetObject(boss, this.transform);
+        boss1.transform.position = new Vector2(15f, 0);
+        boss1.SetActive(true);
+    }
 }

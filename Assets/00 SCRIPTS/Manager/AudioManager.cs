@@ -12,6 +12,9 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioSource fireBullet;
     [SerializeField] private AudioSource destroyCritter;
     [SerializeField] private AudioSource burnedCritter;
+    [SerializeField] private AudioSource hitBoss;
+    [SerializeField] private AudioSource bossCharge;
+    [SerializeField] private AudioSource bossSpawn;
     [Header("Effect UI")]
     [SerializeField] private AudioSource pause;
     [SerializeField] private AudioSource unpause;
@@ -32,6 +35,19 @@ public class AudioManager : Singleton<AudioManager>
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERDEATH, PlayDeathSound);
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERHIT, PlayHitPlayerSound);
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERBOOST, PlayBoostSound);
+    }
+    public void PlayBossSpawnSound()
+    {
+        PlaySource(bossSpawn);
+    }
+    public void PlayBossChargeSound()
+    {
+        fireBullet.pitch = Random.Range(0.7f, 1.3f);
+        PlaySource(bossCharge);
+    }
+    public void PlayHitBossSound()
+    {
+        PlaySource(hitBoss);
     }
     public void PlayBurnedCritterSound()
     {

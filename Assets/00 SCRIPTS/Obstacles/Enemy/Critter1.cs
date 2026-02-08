@@ -81,12 +81,14 @@ public class Critter1 : ObstacleBase
             Instantiate(zappedEffect, transform.position, Quaternion.identity);
             AudioManager.Instant.PlayDestroyCritterSound();
             gameObject.SetActive(false);
+            LevelManager.Instant.critterCounter++;
         }
         else if (collision.gameObject.CompareTag(CONSTANT.TAG_PLAYER))
         {
             Instantiate(burnedEffect, transform.position, Quaternion.identity);
             AudioManager.Instant.PlayBurnedCritterSound();
             gameObject.SetActive(false);
+            LevelManager.Instant.critterCounter++;
         }
     }
 }

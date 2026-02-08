@@ -5510,7 +5510,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 382947154068917842}
-  - component: {fileID: 4716464410528665509}
   - component: {fileID: 8649113774183118507}
   - component: {fileID: 8426485950746174735}
   - component: {fileID: 7049193492317625501}
@@ -5536,18 +5535,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8942397913111341344}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4716464410528665509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3104844232893989150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89aac60fc6b4bc249b16054d8cddd254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PCInput
 --- !u!114 &8649113774183118507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6351,6 +6338,7 @@ Transform:
   - {fileID: 7506777324644403509}
   - {fileID: 8942397913111341344}
   - {fileID: 8710863415304650026}
+  - {fileID: 1282651449505722425}
   - {fileID: 4814526152267385106}
   - {fileID: 4747863353758304097}
   - {fileID: 7624449107805233519}
@@ -6754,6 +6742,53 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.4, y: 0}
   m_Radius: 0.3
+--- !u!1 &7802273008186273234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1282651449505722425}
+  - component: {fileID: 7689247425481106240}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1282651449505722425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7802273008186273234}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1539205551480454785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7689247425481106240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7802273008186273234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2a26133c8d883c489aa359abb3e9161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  obstaclesSpawner: {fileID: 4879162249231845579}
+  critterCounter: 0
+  boss1: {fileID: 7684351764489321394, guid: 80ea65db391ad264f8a5c918073feb11, type: 3}
 --- !u!1 &8142679420379200058
 GameObject:
   m_ObjectHideFlags: 0

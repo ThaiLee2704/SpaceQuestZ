@@ -49,20 +49,30 @@ public class Asteroid : ObstacleBase
     {
         if (collision.gameObject.CompareTag(CONSTANT.TAG_PLAYER) || collision.gameObject.CompareTag(CONSTANT.TAG_BULLET))
         {
-            spriteRenderer.material = hitMaterial;
-            AudioManager.Instant.PlayHitRockSound();
-            StartCoroutine(ResetMaterial());
-            lives--;
-            if (lives <= 0)
-            {
-                Instantiate(destroyEffect, transform.position, Quaternion.identity);
-                AudioManager.Instant.PlayDestroyAsteroidSound();
-                this.spriteRenderer.material = defaulMaterial;
-                lives = 5;
-                gameObject.SetActive(false);
-            }
+            TakeDamage(1);
+        }else if (collision.gameObject.CompareTag(CONSTANT.TAG_BOSS))
+        {
+            TakeDamage(10);
+        }
+
+    }
+
+    public void TakeDamage(int damage)
+    {
+        spriteRenderer.material = hitMaterial;
+        AudioManager.Instant.PlayHitRockSound();
+        StartCoroutine(ResetMaterial());
+        lives -= damage;
+        if (lives <= 0)
+        {
+            Instantiate(destroyEffect, transform.position, Quaternion.identity);
+            AudioManager.Instant.PlayDestroyAsteroidSound();
+            this.spriteRenderer.material = defaulMaterial;
+            lives = 5;
+            gameObject.SetActive(false);
         }
     }
+
     IEnumerator ResetMaterial()
     {
         yield return new WaitForSeconds(0.2f);

@@ -38,7 +38,7 @@ public class GameManager : Singleton<GameManager>
         player = newPlayer;
         Debug.Log("GameManager đã nhận diện được Player!");
     }
-
+    
     private void Update()
     {
         PressPausePanel();

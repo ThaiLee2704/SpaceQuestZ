@@ -128,7 +128,7 @@ public class UIManager : Singleton<UIManager>
     public void OnMainMenuClicked()
     {
         // 1. Bảo LevelManager hủy màn chơi hiện tại đi cho nhẹ máy
-        LevelManager.Instant.DestroyCurrentLevel();
+        LevelSelectionManager.Instant.DestroyCurrentLevel();
 
         // 2. Mở Main Menu lên
         HideAllPanel();
@@ -166,11 +166,11 @@ public class UIManager : Singleton<UIManager>
         yield return new WaitForSeconds(2);
         AudioManager.Instant.PlayGameOverSound();
         OpenPanel(PanelType.GameOver);
-        LevelManager.Instant.DestroyCurrentLevel();
+        LevelSelectionManager.Instant.DestroyCurrentLevel();
     }
     public void OnGameWin()
     {
-        LevelManager.Instant.DestroyCurrentLevel();
+        LevelSelectionManager.Instant.DestroyCurrentLevel();
         AudioManager.Instant.PlayGameWinSound();
         OpenPanel(PanelType.GameWin);
     }

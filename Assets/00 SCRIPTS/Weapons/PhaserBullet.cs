@@ -12,7 +12,8 @@ public class PhaserBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(CONSTANT.TAG_OBSTACLE) || collision.gameObject.CompareTag(CONSTANT.TAG_CRITTER))
+        if (collision.gameObject.CompareTag(CONSTANT.TAG_OBSTACLE) || collision.gameObject.CompareTag(CONSTANT.TAG_CRITTER)
+            || collision.gameObject.CompareTag(CONSTANT.TAG_BOSS))
             gameObject.SetActive(false);
     }
 }
