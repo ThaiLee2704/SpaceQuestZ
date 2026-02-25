@@ -3,9 +3,8 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField] private ObstaclesSpawner obstaclesSpawner;
-
-    public int critterCounter;
     [SerializeField] private GameObject boss1;
+    public int critterCounter;
 
     private void Update()
     {

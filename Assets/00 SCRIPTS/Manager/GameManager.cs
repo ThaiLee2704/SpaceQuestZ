@@ -4,12 +4,11 @@
 
 public class GameManager : Singleton<GameManager>
 {
-    public float worldSpeed;
-
+    private IPlayerInput input;
     [SerializeField] private PlayerController player;
     public PlayerController Player => player;
 
-    private IPlayerInput input;
+    public float worldSpeed;
 
     // Vì GameManager kế thừa Singleton mà trong Singleton có Awake() rồi nên muốn dùng
     // Awake trong GameManager thì ta phải kế thừa và viết lại dựa trên base Singleton

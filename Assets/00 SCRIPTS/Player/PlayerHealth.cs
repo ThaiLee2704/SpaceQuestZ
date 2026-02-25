@@ -1,31 +1,38 @@
 ﻿using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDamageable
 {
     private PlayerController player;
 
     [SerializeField] private float health;
     [SerializeField] private float maxHealth;
 
+    private int damage;
+
     void Start()
     {
         player = GetComponent<PlayerController>();
 
+        damage = 5;
         health = maxHealth;
         HUDManager.Instant.UpdateHealthSlider(health, maxHealth);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(CONSTANT.TAG_OBSTACLE))
-            TakeDamage(1);
-        else if (collision.gameObject.CompareTag(CONSTANT.TAG_BOSS))
-            TakeDamage(5);
+        if (collision.gameObject.CompareTag(CONSTANT.TAG_CRITTER))
+            return;
+        if (collision.gameObject.TryGetComponent(out IDamageable damageableTarget))
+        {
+            damageableTarget.TakeDamage(this.damage, this.gameObject.tag);
+        }
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damageAmount, string damageSourceTag)
     {
-        health -= damage;
+        if (damageAmount <= 0) return;
+
+        health -= damageAmount;
         HUDManager.Instant.UpdateHealthSlider(health, maxHealth);
         //Thông báo cho các Listener như PlayerVFX,PlayerSFX là player bị tấn công
         Observer.Notify("playerHit", null);

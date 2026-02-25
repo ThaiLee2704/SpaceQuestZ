@@ -6,12 +6,10 @@ public class PlayerEnergy : MonoBehaviour
 
     [SerializeField] private float energy;
     [SerializeField] private float maxEnergy = 50f;
-    [SerializeField] private float energyRegen = 0.5f;
+    [SerializeField] private float minEnergyToBoost = 0.2f;
     [SerializeField] private float energyConsumptionPerSecond = 0.5f;
+    [SerializeField] private float energyRegen = 0.5f;
 
-    public float CurrentEnergy => energy;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GetComponent<PlayerController>();
@@ -20,7 +18,6 @@ public class PlayerEnergy : MonoBehaviour
         HUDManager.Instant.UpdateEnergySlider(energy, maxEnergy);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (player != null && player.IsPlayerBoosting)
@@ -42,5 +39,11 @@ public class PlayerEnergy : MonoBehaviour
         }
 
         HUDManager.Instant.UpdateEnergySlider(energy, maxEnergy);
+    }
+    public bool HasEnergy()
+    {
+        if (energy >= minEnergyToBoost)
+            return true;
+        return false;
     }
 }

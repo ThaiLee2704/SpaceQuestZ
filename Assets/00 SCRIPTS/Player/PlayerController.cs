@@ -1,40 +1,34 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(IPlayerInput))]
 [RequireComponent(typeof(PlayerEnergy))]
 [RequireComponent(typeof(PlayerHealth))]
+[RequireComponent(typeof(PlayerVFX))]
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private IPlayerInput input;
-    public IPlayerInput Input => input;
+    private PlayerEnergy playerEnergy;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float boostMultiplier = 5f;
-
-    [SerializeField] private float minEnergyToBoost = 0.2f;
-    private PlayerEnergy playerEnergy;
-
     [SerializeField] private bool isPlayerBoosting;
-    public bool IsPlayerBoosting => isPlayerBoosting;
-
     [SerializeField] private bool isDead;
-
-    public float BoostSpeed => isDead ? 0f : (isPlayerBoosting ? boostMultiplier : 1f);
-
     // Cờ chặn boost cho đến khi người chơi thả phím Space
     private bool blockedBoostUntilRelease;
 
+    public IPlayerInput Input => input;
+    public bool IsPlayerBoosting => isPlayerBoosting;
+    public float BoostSpeed => isDead ? 0f : (isPlayerBoosting ? boostMultiplier : 1f);
+
+    //Bỏ trong OnEnable() để sau này xử lý coi quảng cáo hồi sinh là ngon luôn
     private void OnEnable()
     {
-        //Môi khi clone level thì đăng ký PlayerController trong level đó cho GameManager
+        //Mỗi khi clone level thì đăng ký PlayerController trong level đó cho GameManager
         GameManager.Instant.RegisterPlayer(this);
     }
-
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -80,7 +74,7 @@ public class PlayerController : MonoBehaviour
         }
 
         bool wantsBoost = input.IsBoostBtnDown;
-        bool hasEnergy = playerEnergy.CurrentEnergy >= minEnergyToBoost;
+        bool hasEnergy = playerEnergy.HasEnergy();
 
         if (wantsBoost && !hasEnergy)
         {

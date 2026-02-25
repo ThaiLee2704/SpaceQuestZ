@@ -47,8 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33addea9544355048842c4457760e67c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1
-  destroyEffect: {fileID: 3237334065794049564, guid: 27e85323a2fd5b64f8baf3e40f5366f5, type: 3}
-  lives: 0
+  destroyEffect: {fileID: 3262302560915060667, guid: 9a0e27ad9e9c63a428627261c1f2688e, type: 3}
 --- !u!58 &7129906356034714394
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -124,6 +123,7 @@ GameObject:
   - component: {fileID: 8224418187405325321}
   - component: {fileID: 4200871469604423393}
   - component: {fileID: 6544892050238755742}
+  - component: {fileID: 36578602626814360}
   m_Layer: 0
   m_Name: AvatarBoss1
   m_TagString: Untagged
@@ -239,4 +239,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAnimation
   defaulMaterial: {fileID: 0}
+--- !u!114 &36578602626814360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8844795110604703084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221363aafd38ded49ae6b297857b69af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlashWhite
   hitMaterial: {fileID: 2100000, guid: 0358df976ed044e4295238b5916c2883, type: 2}

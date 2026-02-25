@@ -221,11 +221,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSpawner
   minPos: {fileID: 783357070137502882}
   maxPos: {fileID: 923416525597705247}
-  waveNumber: 0
   waves:
   - prefabs: {fileID: 3054574466291035056, guid: 3d585e50fe6dcb4409f36cf466d24f44, type: 3}
     spawnTimer: 0
     spawnInterval: 1
+    objectsPerWave: 20
+    spawnedObjectCount: 0
+  - prefabs: {fileID: 3054574466291035056, guid: 3d585e50fe6dcb4409f36cf466d24f44, type: 3}
+    spawnTimer: 0
+    spawnInterval: 0.6
+    objectsPerWave: 40
+    spawnedObjectCount: 0
+  - prefabs: {fileID: 3054574466291035056, guid: 3d585e50fe6dcb4409f36cf466d24f44, type: 3}
+    spawnTimer: 0
+    spawnInterval: 0.4
+    objectsPerWave: 100
+    spawnedObjectCount: 0
+  - prefabs: {fileID: 3054574466291035056, guid: 3d585e50fe6dcb4409f36cf466d24f44, type: 3}
+    spawnTimer: 0
+    spawnInterval: 2
     objectsPerWave: 10
     spawnedObjectCount: 0
   - prefabs: {fileID: 4270722037316497020, guid: 7a56490a9bce35f4884e16cd7b5c6bc7, type: 3}
@@ -233,6 +247,7 @@ MonoBehaviour:
     spawnInterval: 5
     objectsPerWave: 1
     spawnedObjectCount: 0
+  waveNumber: 0
 --- !u!1 &1853476114274694432
 GameObject:
   m_ObjectHideFlags: 0
@@ -5513,6 +5528,7 @@ GameObject:
   - component: {fileID: 8649113774183118507}
   - component: {fileID: 8426485950746174735}
   - component: {fileID: 7049193492317625501}
+  - component: {fileID: 794274617507439965}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -5547,7 +5563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03e8c7b834772046b4645316fa57569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationController
-  hitMaterial: {fileID: 2100000, guid: 0358df976ed044e4295238b5916c2883, type: 2}
 --- !u!212 &8426485950746174735
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5628,6 +5643,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &794274617507439965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104844232893989150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221363aafd38ded49ae6b297857b69af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlashWhite
+  hitMaterial: {fileID: 2100000, guid: 0358df976ed044e4295238b5916c2883, type: 2}
 --- !u!1 &3179665983915212904
 GameObject:
   m_ObjectHideFlags: 0
@@ -6197,10 +6225,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhaserWeapon
   prefabs: {fileID: 5267289509958442951, guid: dcbb0403365c3d74599ca44a00cf9ed8, type: 3}
-  speed: 12
-  damage: 1
   attackSpeed: 0.2
   nextFireTime: 0
+  speed: 12
+  damage: 1
 --- !u!1 &6482849605307962204
 GameObject:
   m_ObjectHideFlags: 0
@@ -6521,7 +6549,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSpawner
   minPos: {fileID: 8345484960891780759}
   maxPos: {fileID: 2906897324019050983}
-  waveNumber: 0
   waves:
   - prefabs: {fileID: 518999690304103624, guid: 449c228fb151da04abf78403759847d1, type: 3}
     spawnTimer: 0
@@ -6530,9 +6557,15 @@ MonoBehaviour:
     spawnedObjectCount: 0
   - prefabs: {fileID: 518999690304103624, guid: 449c228fb151da04abf78403759847d1, type: 3}
     spawnTimer: 0
-    spawnInterval: 0.2
-    objectsPerWave: 10
+    spawnInterval: 1.2
+    objectsPerWave: 20
     spawnedObjectCount: 0
+  - prefabs: {fileID: 518999690304103624, guid: 449c228fb151da04abf78403759847d1, type: 3}
+    spawnTimer: 0
+    spawnInterval: 5
+    objectsPerWave: 3
+    spawnedObjectCount: 0
+  waveNumber: 0
 --- !u!1 &7304971673001022958
 GameObject:
   m_ObjectHideFlags: 0
@@ -6632,7 +6665,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 3.5
   boostMultiplier: 5
-  minEnergyToBoost: 1
   isPlayerBoosting: 0
   isDead: 0
 --- !u!114 &5439959867565370471
@@ -6649,8 +6681,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEnergy
   energy: 0
   maxEnergy: 50
-  energyRegen: 0.2
-  energyConsumptionPerSecond: 0.2
+  minEnergyToBoost: 0.2
+  energyConsumptionPerSecond: 0.5
+  energyRegen: 0.05
 --- !u!114 &5179440296934081388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6787,8 +6820,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   obstaclesSpawner: {fileID: 4879162249231845579}
-  critterCounter: 0
   boss1: {fileID: 7684351764489321394, guid: 80ea65db391ad264f8a5c918073feb11, type: 3}
+  critterCounter: 0
 --- !u!1 &8142679420379200058
 GameObject:
   m_ObjectHideFlags: 0
@@ -6814,7 +6847,7 @@ Transform:
   m_GameObject: {fileID: 8142679420379200058}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11, y: -4, z: 0}
+  m_LocalPosition: {x: 15, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7039,7 +7072,7 @@ Transform:
   m_GameObject: {fileID: 8786944249492265032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11, y: 4, z: 0}
+  m_LocalPosition: {x: 15, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

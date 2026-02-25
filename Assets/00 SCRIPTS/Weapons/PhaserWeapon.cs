@@ -2,16 +2,15 @@
 
 public class PhaserWeapon : Singleton<PhaserWeapon>
 {
+    private GameObject go;
+    private Transform bulletContainer;
+
     [SerializeField] private GameObject prefabs;
-
-    public float speed;
-    public int damage;
-
     [SerializeField] private float attackSpeed = 0.3f;
     [SerializeField] private float nextFireTime = 0;
 
-    private GameObject go;
-    private Transform bulletContainer;
+    public float speed;
+    public int damage;
 
     private void Start()
     {

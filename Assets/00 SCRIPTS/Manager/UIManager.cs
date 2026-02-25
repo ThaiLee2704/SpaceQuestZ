@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public enum PanelType
+public enum ePanelType
 {
     MainMenuPanel,
     LevelsPanel,
@@ -16,6 +14,8 @@ public enum PanelType
 
 public class UIManager : Singleton<UIManager>
 {
+    private ePanelType panelToReturn;
+
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject levelsPanel;
     [SerializeField] private GameObject settingPanel;
@@ -24,16 +24,14 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject gameWinPanel;
 
-    private PanelType panelToReturn;
-
-    private void Start()
+    private void OnEnable()
     {
-        OpenPanel(PanelType.MainMenuPanel);
+        OpenPanel(ePanelType.MainMenuPanel);
 
         Observer.AddListener(CONSTANT.OBSERVER_PLAYERDEATH, OnGameOver);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERDEATH, OnGameOver);
     }
@@ -49,7 +47,7 @@ public class UIManager : Singleton<UIManager>
         gameWinPanel.SetActive(false);
     }
 
-    public void OpenPanel(PanelType type)
+    public void OpenPanel(ePanelType type)
     {
         levelsPanel.SetActive(false);
         settingPanel.SetActive(false);
@@ -60,53 +58,53 @@ public class UIManager : Singleton<UIManager>
 
         switch (type)
         {
-            case PanelType.MainMenuPanel:
+            case ePanelType.MainMenuPanel:
                 mainMenuPanel.SetActive(true);
                 break;
-            case PanelType.LevelsPanel:
+            case ePanelType.LevelsPanel:
                 levelsPanel.SetActive(true);
                 break;
-            case PanelType.SettingPanel:
+            case ePanelType.SettingPanel:
                 settingPanel.SetActive(true);
                 break;
-            case PanelType.HelpPanel:
+            case ePanelType.HelpPanel:
                 helpPanel.SetActive(true);
                 break;
-            case PanelType.PausePanel:
+            case ePanelType.PausePanel:
                 pausePanel.SetActive(true);
                 break;
-            case PanelType.GameOver:
+            case ePanelType.GameOver:
                 gameOverPanel.SetActive(true);
                 break;
-            case PanelType.GameWin:
+            case ePanelType.GameWin:
                 gameWinPanel.SetActive(true);
                 break;
         }
     }
     public void OnPlayGameClicked()
     {
-        panelToReturn = PanelType.MainMenuPanel;
+        panelToReturn = ePanelType.MainMenuPanel;
 
         AudioManager.Instant.StopMainMenuSound();
-        OpenPanel(PanelType.LevelsPanel);
+        OpenPanel(ePanelType.LevelsPanel);
     }
     public void OnSettingOfMainMenuClicked()
     {
-        panelToReturn = PanelType.MainMenuPanel;
+        panelToReturn = ePanelType.MainMenuPanel;
 
-        OpenPanel(PanelType.SettingPanel);
+        OpenPanel(ePanelType.SettingPanel);
     }
     public void OnSettingOfPauseClicked()
     {
-        panelToReturn = PanelType.PausePanel;
+        panelToReturn = ePanelType.PausePanel;
 
-        OpenPanel(PanelType.SettingPanel);
+        OpenPanel(ePanelType.SettingPanel);
     }
     public void OnHelpClicked()
     {
-        panelToReturn = PanelType.MainMenuPanel;
+        panelToReturn = ePanelType.MainMenuPanel;
 
-        OpenPanel(PanelType.HelpPanel);
+        OpenPanel(ePanelType.HelpPanel);
     }
     public void OnQuitClicked()
     {
@@ -116,7 +114,7 @@ public class UIManager : Singleton<UIManager>
     public void OnPauseClicked()
     {
         AudioManager.Instant.PlayPauseSound();
-        OpenPanel(PanelType.PausePanel);
+        OpenPanel(ePanelType.PausePanel);
         Time.timeScale = 0f;
     }
     public void OnResumeClicked()
@@ -140,11 +138,11 @@ public class UIManager : Singleton<UIManager>
     public void OnBackClicked()
     {
         // Kiểm tra xem cần quay về đâu
-        if (panelToReturn == PanelType.PausePanel)
+        if (panelToReturn == ePanelType.PausePanel)
         {
-            OpenPanel(PanelType.PausePanel);
+            OpenPanel(ePanelType.PausePanel);
         }
-        else if (panelToReturn == PanelType.MainMenuPanel) // Giả sử bạn có logic này từ MainMenu
+        else if (panelToReturn == ePanelType.MainMenuPanel) // Giả sử bạn có logic này từ MainMenu
         {
             if (levelsPanel.activeSelf)
             {
@@ -165,14 +163,14 @@ public class UIManager : Singleton<UIManager>
     {
         yield return new WaitForSeconds(2);
         AudioManager.Instant.PlayGameOverSound();
-        OpenPanel(PanelType.GameOver);
+        OpenPanel(ePanelType.GameOver);
         LevelSelectionManager.Instant.DestroyCurrentLevel();
     }
     public void OnGameWin()
     {
         LevelSelectionManager.Instant.DestroyCurrentLevel();
         AudioManager.Instant.PlayGameWinSound();
-        OpenPanel(PanelType.GameWin);
+        OpenPanel(ePanelType.GameWin);
     }
 
     //Xử lý PausePanel bằng Keyword

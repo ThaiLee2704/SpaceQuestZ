@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.TextCore.LowLevel;
 
-public class Critter1 : ObstacleBase
+public class Critter1 : ObstacleBase, IDamageable
 {   
     private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite[] sprites;
-    [SerializeField] GameObject zappedEffect;
-    [SerializeField] GameObject burnedEffect;
-
-    private float moveSpeed;
-    private Vector3 targetPosition;
     private Quaternion targetRotation;
-
+    private Vector3 targetPosition;
+    private float moveSpeed;
     private float moveTimer;
     private float moveInterval;
+
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private GameObject zappedEffect;
+    [SerializeField] private GameObject burnedEffect;
 
     private void Awake()
     {
@@ -44,6 +43,7 @@ public class Critter1 : ObstacleBase
             GenerateMoveInterval();
         }
 
+        targetPosition -= new Vector3(GameManager.Instant.worldSpeed * Time.deltaTime, 0);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
         //Hưởng vật đến target
@@ -63,7 +63,7 @@ public class Critter1 : ObstacleBase
 
     private void GenerateMoveInterval()
     {
-        moveInterval = Random.Range(0.1f, 2f);
+        moveInterval = Random.Range(0.3f, 2f);
         moveTimer = moveInterval;
     }
 
@@ -76,19 +76,34 @@ public class Critter1 : ObstacleBase
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(CONSTANT.TAG_BULLET))
+        if (collision.gameObject.CompareTag(CONSTANT.TAG_PLAYER))
         {
-            Instantiate(zappedEffect, transform.position, Quaternion.identity);
+            TakeDamage(0, CONSTANT.TAG_PLAYER);
+        }
+    }
+
+    public void TakeDamage(int damageAmount, string damageSourceTag)
+    {
+        if (damageSourceTag == CONSTANT.TAG_BULLET)
+        {
+            GameObject zapEffect = ObjectPooling.Instant.GetObject(zappedEffect, transform.parent);
+            zapEffect.transform.position = transform.position;
+            zapEffect.transform.rotation = transform.rotation;
+            zapEffect.SetActive(true);
+
             AudioManager.Instant.PlayDestroyCritterSound();
-            gameObject.SetActive(false);
-            LevelManager.Instant.critterCounter++;
         }
-        else if (collision.gameObject.CompareTag(CONSTANT.TAG_PLAYER))
+        else if (damageSourceTag == CONSTANT.TAG_PLAYER)
         {
-            Instantiate(burnedEffect, transform.position, Quaternion.identity);
+            GameObject burnEffect = ObjectPooling.Instant.GetObject(burnedEffect, transform.parent);
+            burnEffect.transform.position = transform.position;
+            burnEffect.transform.rotation = transform.rotation;
+            burnEffect.SetActive(true);
+
             AudioManager.Instant.PlayBurnedCritterSound();
-            gameObject.SetActive(false);
-            LevelManager.Instant.critterCounter++;
         }
+
+        gameObject.SetActive(false);
+        LevelManager.Instant.critterCounter++;
     }
 }

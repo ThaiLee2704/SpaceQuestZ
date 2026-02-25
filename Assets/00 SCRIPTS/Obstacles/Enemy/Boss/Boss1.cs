@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
 
-public class Boss1 : ObstacleBase
+public class Boss1 : ObstacleBase, IDamageable
 {
-    private float playerPositionX;
-
-    [SerializeField] private GameObject destroyEffect;
     private Boss1Animation boss1Animation;
-
-    [SerializeField] private int lives;
-
+    private float playerPositionX;
     private float speedX;
     private float speedY;
-    private bool charging;
-    public bool Charging => charging;
-
+    private bool isCharging;
     private float switchInterval;
     private float switchTimer;
+    private int damage = 20;
+    private int lives;
+    private int maxLives = 20;
+
+    [SerializeField] private GameObject destroyEffect;
+    public bool IsCharging => isCharging;
+
+    private void Awake()
+    {
+        boss1Animation = GetComponentInChildren<Boss1Animation>();
+    }
 
     private void OnEnable()
     {
-        boss1Animation = GetComponentInChildren<Boss1Animation>();
-        lives = 30;
+        lives = maxLives;
         EnterChargeState();
         AudioManager.Instant.PlayBossSpawnSound();
     }
@@ -33,7 +36,7 @@ public class Boss1 : ObstacleBase
             switchTimer -= Time.deltaTime;
         else
         {
-            if (charging && transform.position.x > playerPositionX)
+            if (isCharging && transform.position.x > playerPositionX)
                 EnterPatrolState();
             else
                 EnterChargeState();
@@ -50,7 +53,7 @@ public class Boss1 : ObstacleBase
             EnterChargeState();
 
         float moveX;
-        if (GameManager.Instant.Player.IsPlayerBoosting && !charging)
+        if (GameManager.Instant.Player.IsPlayerBoosting && !isCharging)
             moveX = GameManager.Instant.worldSpeed * Time.deltaTime * -1f;
         else
             moveX = speedX * Time.deltaTime;
@@ -69,12 +72,12 @@ public class Boss1 : ObstacleBase
         switchInterval = Random.Range(5f, 10f);
         switchTimer = switchInterval;
 
-        charging = false;
+        isCharging = false;
     }
 
     void EnterChargeState()
     {
-        if (!charging)
+        if (!isCharging)
             AudioManager.Instant.PlayBossChargeSound();
         speedX = -10f;
         speedY = 0;
@@ -82,30 +85,35 @@ public class Boss1 : ObstacleBase
         switchInterval = Random.Range(0.6f, 1.3f); ;
         switchTimer = switchInterval;
 
-        charging = true;
+        isCharging = true;
 
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damageAmount, string damageSourceTag)
     {
+        if (damageAmount <= 0) return;
+
         AudioManager.Instant.PlayHitBossSound();
-        lives -= damage;
-        boss1Animation.OnChangeMaterialWhenHit();
+        lives -= damageAmount;
+        boss1Animation.ChangeMaterialWhenHit();
         if (lives <= 0)
         {
-            Instantiate(destroyEffect, transform.position, Quaternion.identity); //Sửa lại DestroyEffect khi boss bị diệt
-            //AudioManager.Instant.PlayDestroyAsteroidSound();
+            GameObject effect = ObjectPooling.Instant.GetObject(destroyEffect, transform.parent); 
+            effect.transform.position = transform.position;
+            effect.transform.rotation = Quaternion.identity;
+            effect.SetActive(true);
+
+            AudioManager.Instant.PlayDestroyAsteroidSound();
             boss1Animation.GetComponent<SpriteRenderer>().material = boss1Animation.defaulMaterial;
-            lives = 30;
             gameObject.SetActive(false);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(CONSTANT.TAG_BULLET))
+        if (collision.gameObject.TryGetComponent(out IDamageable damageableTarget))
         {
-            TakeDamage(1);
+            damageableTarget.TakeDamage(this.damage, this.gameObject.tag);
         }
     }
 }

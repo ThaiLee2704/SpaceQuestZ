@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7962856029552431478}
   - component: {fileID: 2588604419756847992}
   - component: {fileID: 6090205465928150301}
-  - component: {fileID: 5615464050830441050}
+  - component: {fileID: 4644983615923470468}
+  - component: {fileID: -439394511625464284}
   m_Layer: 0
   m_Name: Boom1
   m_TagString: Untagged
@@ -114,7 +115,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5615464050830441050
+--- !u!114 &4644983615923470468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,6 +124,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7079054075385887125}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57af9468826fb554d942566a1ade833a, type: 3}
+  m_Script: {fileID: 11500000, guid: 83115e91b1a68284db9ababa9ec8a5a5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Boom
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyWhenAnimationFinished
+--- !u!114 &-439394511625464284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7079054075385887125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123ee7de7c1a8eb4c8e098fcf44af6ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FloatInSpace

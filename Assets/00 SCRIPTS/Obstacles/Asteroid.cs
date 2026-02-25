@@ -1,30 +1,35 @@
-using System.Collections;
+﻿using System.Collections;
 using TreeEditor;
 using UnityEngine;
 
-public class Asteroid : ObstacleBase
+public class Asteroid : ObstacleBase, IDamageable
 {
-    private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite[] sprites;
-
-    private Material defaulMaterial;
-    [SerializeField] private Material hitMaterial;
-
-    [SerializeField] private GameObject destroyEffect;
-    [SerializeField] private int lives;
-
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
+    private FlashWhite flashWhite;
+
+    private int lives;
+    private int maxLives;
+    private int damage;
+
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private GameObject destroyEffect;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        defaulMaterial = spriteRenderer.material;
+        flashWhite = GetComponent<FlashWhite>();
     }
 
     void Start()
     {
         InitAsteroid();
+    }
+
+    private void OnEnable()
+    {
+        lives = maxLives;
     }
 
     void Update()
@@ -43,39 +48,46 @@ public class Asteroid : ObstacleBase
 
         float randomScale = Random.Range(0.6f, 1f);
         transform.localScale = new Vector2(randomScale, randomScale);
+
+        maxLives = 5;
+        lives = maxLives;
+        damage = 1;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(CONSTANT.TAG_PLAYER) || collision.gameObject.CompareTag(CONSTANT.TAG_BULLET))
+        if (collision.gameObject.CompareTag(CONSTANT.TAG_BOSS) ||
+            collision.gameObject.CompareTag(CONSTANT.TAG_OBSTACLE))
+            return;
+        
+        if (collision.gameObject.TryGetComponent(out IDamageable damageableTarget))
         {
-            TakeDamage(1);
-        }else if (collision.gameObject.CompareTag(CONSTANT.TAG_BOSS))
-        {
-            TakeDamage(10);
+            damageableTarget.TakeDamage(this.damage, this.gameObject.tag);
         }
-
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damageAmount, string damageSourceTag)
     {
-        spriteRenderer.material = hitMaterial;
-        AudioManager.Instant.PlayHitRockSound();
-        StartCoroutine(ResetMaterial());
-        lives -= damage;
+        if (damageAmount <= 0) return;
+
+        lives -= damageAmount;
         if (lives <= 0)
         {
-            Instantiate(destroyEffect, transform.position, Quaternion.identity);
+            GameObject effect = ObjectPooling.Instant.GetObject(destroyEffect, transform.parent);
+            effect.transform.position = transform.position;
+            effect.transform.rotation = transform.rotation;
+            effect.SetActive(true);
+
             AudioManager.Instant.PlayDestroyAsteroidSound();
-            this.spriteRenderer.material = defaulMaterial;
-            lives = 5;
+            flashWhite.ResetMaterialAfterDisable();
+            lives = 5;  //Hard code
             gameObject.SetActive(false);
+        }
+        else
+        {
+            AudioManager.Instant.PlayHitRockSound();
+            flashWhite.Flash();
         }
     }
 
-    IEnumerator ResetMaterial()
-    {
-        yield return new WaitForSeconds(0.2f);
-        spriteRenderer.material = defaulMaterial;
-    }
 }

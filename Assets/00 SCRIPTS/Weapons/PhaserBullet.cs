@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PhaserBullet : MonoBehaviour
 {
@@ -12,8 +12,11 @@ public class PhaserBullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(CONSTANT.TAG_OBSTACLE) || collision.gameObject.CompareTag(CONSTANT.TAG_CRITTER)
-            || collision.gameObject.CompareTag(CONSTANT.TAG_BOSS))
-            gameObject.SetActive(false);
+        if (collision.gameObject.TryGetComponent(out IDamageable damageableTarget))
+        {
+            damageableTarget.TakeDamage(PhaserWeapon.Instant.damage, this.gameObject.tag);
+
+            this.gameObject.SetActive(false);
+        }
     }
 }

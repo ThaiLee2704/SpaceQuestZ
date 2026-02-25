@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2736164481985399412}
   - component: {fileID: 1114411901270722782}
   - component: {fileID: 2870489882236022194}
+  - component: {fileID: 7179886980248681552}
   m_Layer: 8
   m_Name: Asteroid
   m_TagString: Obstacle
@@ -53,7 +54,6 @@ MonoBehaviour:
   - {fileID: -2077299236, guid: fa96ff2a235676245abe171d4f96140a, type: 3}
   - {fileID: 2007507759, guid: fa96ff2a235676245abe171d4f96140a, type: 3}
   - {fileID: -900421929, guid: fa96ff2a235676245abe171d4f96140a, type: 3}
-  hitMaterial: {fileID: 2100000, guid: 0358df976ed044e4295238b5916c2883, type: 2}
   destroyEffect: {fileID: 7276893909315115390, guid: 0d17f9ea86b851b4393327606452daa6, type: 3}
   lives: 5
 --- !u!212 &2736164481985399412
@@ -177,3 +177,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7179886980248681552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3054574466291035056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221363aafd38ded49ae6b297857b69af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlashWhite
+  hitMaterial: {fileID: 2100000, guid: 0358df976ed044e4295238b5916c2883, type: 2}

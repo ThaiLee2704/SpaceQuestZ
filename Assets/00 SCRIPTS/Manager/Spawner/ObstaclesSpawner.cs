@@ -6,8 +6,8 @@ public class ObstaclesSpawner : MonoBehaviour
     [SerializeField] private Transform minPos;
     [SerializeField] private Transform maxPos;
 
-    [SerializeField] private int waveNumber;
     [SerializeField] private List<Wave> waves;
+    [SerializeField] private int waveNumber;
 
     //Cách 1: Nested Class: khai báo class dạng như 1 struct để dễ nhìn khi code
     [System.Serializable]
@@ -22,10 +22,10 @@ public class ObstaclesSpawner : MonoBehaviour
 
     private void Update()
     {
-        waves[waveNumber].spawnTimer += Time.deltaTime * GameManager.Instant.Player.BoostSpeed;
-        if (waves[waveNumber].spawnTimer >= waves[waveNumber].spawnInterval)
+        waves[waveNumber].spawnTimer -= Time.deltaTime * GameManager.Instant.Player.BoostSpeed;
+        if (waves[waveNumber].spawnTimer <= 0)
         {
-            waves[waveNumber].spawnTimer = 0;
+            waves[waveNumber].spawnTimer += waves[waveNumber].spawnInterval;
             SpawnObject();
         }
 

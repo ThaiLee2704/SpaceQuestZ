@@ -1,19 +1,19 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerVFX : MonoBehaviour
 {
     [SerializeField] GameObject deathEffect;
     [SerializeField] ParticleSystem boostEffect;
 
-    private void Start()
+    private void OnEnable()
     {
-        Observer.AddListener(CONSTANT.OBSERVER_PLAYERDEATH,PlayDeathEffect);
+        Observer.AddListener(CONSTANT.OBSERVER_PLAYERDEATH,PlayerDeathEffect);
         Observer.AddListener(CONSTANT.OBSERVER_PLAYERBOOST, PlayerBoostEffect);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERDEATH, PlayDeathEffect);
+        Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERDEATH, PlayerDeathEffect);
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERBOOST, PlayerBoostEffect);
     }
 
@@ -22,8 +22,11 @@ public class PlayerVFX : MonoBehaviour
         boostEffect.Play();
     }
 
-    void PlayDeathEffect(object[] datas)
+    void PlayerDeathEffect(object[] datas)
     {
-        Instantiate(deathEffect, transform.position, transform.rotation);
+        GameObject effect = ObjectPooling.Instant.GetObject(deathEffect, transform.parent); //Sửa lại DestroyEffect khi boss bị diệt
+        effect.transform.position = transform.position;
+        effect.transform.rotation = transform.rotation;
+        effect.SetActive(true);
     }
 }
