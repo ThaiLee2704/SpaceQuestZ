@@ -6224,11 +6224,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3d9cdb2521cd14e9ea6b0d0b8a61ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhaserWeapon
+  weaponLevel: 0
+  stats:
+  - speed: 12
+    damage: 1
+    size: 1
+    amount: 1
+    range: 1
+  - speed: 13
+    damage: 1
+    size: 1
+    amount: 2
+    range: 1.25
+  - speed: 14
+    damage: 1
+    size: 1
+    amount: 3
+    range: 1.5
+  - speed: 15
+    damage: 1
+    size: 1
+    amount: 4
+    range: 1.75
+  - speed: 16
+    damage: 2
+    size: 1.5
+    amount: 5
+    range: 2
+  - speed: 17
+    damage: 2
+    size: 1.5
+    amount: 6
+    range: 2.25
+  - speed: 18
+    damage: 2
+    size: 1.5
+    amount: 7
+    range: 2.5
+  - speed: 18
+    damage: 3
+    size: 2
+    amount: 8
+    range: 2.5
+  - speed: 19
+    damage: 3
+    size: 2
+    amount: 9
+    range: 2.75
+  - speed: 20
+    damage: 3
+    size: 2
+    amount: 10
+    range: 3
+  speed: 12
+  damage: 1
+  size: 1
+  amount: 1
+  range: 3
   prefabs: {fileID: 5267289509958442951, guid: dcbb0403365c3d74599ca44a00cf9ed8, type: 3}
   attackSpeed: 0.2
   nextFireTime: 0
-  speed: 12
-  damage: 1
 --- !u!1 &6482849605307962204
 GameObject:
   m_ObjectHideFlags: 0
@@ -6663,6 +6718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4feb50746a5a3964ab03722d52c5b200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  currentWeapon: {fileID: 8221426552584149289}
   moveSpeed: 3.5
   boostMultiplier: 5
   isPlayerBoosting: 0

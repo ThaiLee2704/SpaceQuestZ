@@ -31,6 +31,8 @@ public class Critter1 : ObstacleBase, IDamageable
     void Update()
     {
         HandleMovement();
+        if (!gameObject.activeSelf)
+            LevelManager.Instant.critterCounter++;
     }
 
     private void HandleMovement()
@@ -104,6 +106,5 @@ public class Critter1 : ObstacleBase, IDamageable
         }
 
         gameObject.SetActive(false);
-        LevelManager.Instant.critterCounter++;
     }
 }

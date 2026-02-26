@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private IPlayerInput input;
     private PlayerEnergy playerEnergy;
 
+    [SerializeField] private Weapon currentWeapon;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float boostMultiplier = 5f;
     [SerializeField] private bool isPlayerBoosting;
@@ -120,7 +121,10 @@ public class PlayerController : MonoBehaviour
     {
         bool wantsFire = input.IsFirePressed;
         if (wantsFire)
-            PhaserWeapon.Instant.FireBullet();
+        {
+            if (currentWeapon != null)
+                currentWeapon.FireBullet();
+        }
     }
 
     #endregion
