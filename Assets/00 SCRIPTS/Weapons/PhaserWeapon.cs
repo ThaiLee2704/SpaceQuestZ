@@ -10,6 +10,15 @@ public class PhaserWeapon : Weapon
     [SerializeField] private float attackSpeed = 0.3f;
     [SerializeField] private float nextFireTime = 0;
 
+    private void OnEnable()
+    {
+        Observer.AddListener(CONSTANT.OBSERVER_PLAYERLEVELUP, OnLevelUp);
+    }
+
+    private void OnDisable()
+    {
+        Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERLEVELUP, OnLevelUp);
+    }
     private void Start()
     {
         go = new GameObject("-----BULLET CONTAINER-----");
@@ -55,6 +64,14 @@ public class PhaserWeapon : Weapon
                     }
                 }
             }
+        }
+    }
+
+    public void OnLevelUp(object[] datas)
+    {
+        if (weaponLevel < stats.Count - 1)
+        {
+            weaponLevel++;
         }
     }
 }

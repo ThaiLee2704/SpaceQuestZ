@@ -12,6 +12,7 @@ public class Boss1 : ObstacleBase, IDamageable
     private int damage = 20;
     private int lives;
     private int maxLives = 20;
+    private int expToGive = 20;
 
     [SerializeField] private GameObject destroyEffect;
     public bool IsCharging => isCharging;
@@ -106,6 +107,7 @@ public class Boss1 : ObstacleBase, IDamageable
             AudioManager.Instant.PlayDestroyAsteroidSound();
             boss1Animation.GetComponent<SpriteRenderer>().material = boss1Animation.defaulMaterial;
             gameObject.SetActive(false);
+            Observer.Notify("dropExp", expToGive);
         }
     }
 

@@ -12,13 +12,14 @@ public class PlayerController : MonoBehaviour
     private IPlayerInput input;
     private PlayerEnergy playerEnergy;
 
+    // Cờ chặn boost cho đến khi người chơi thả phím Space
+    private bool blockedBoostUntilRelease;
+
     [SerializeField] private Weapon currentWeapon;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float boostMultiplier = 5f;
     [SerializeField] private bool isPlayerBoosting;
     [SerializeField] private bool isDead;
-    // Cờ chặn boost cho đến khi người chơi thả phím Space
-    private bool blockedBoostUntilRelease;
 
     public IPlayerInput Input => input;
     public bool IsPlayerBoosting => isPlayerBoosting;

@@ -9,6 +9,7 @@ public class Critter1 : ObstacleBase, IDamageable
     private float moveSpeed;
     private float moveTimer;
     private float moveInterval;
+    private int expToGive = 1;
 
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private GameObject zappedEffect;
@@ -31,8 +32,6 @@ public class Critter1 : ObstacleBase, IDamageable
     void Update()
     {
         HandleMovement();
-        if (!gameObject.activeSelf)
-            LevelManager.Instant.critterCounter++;
     }
 
     private void HandleMovement()
@@ -92,6 +91,7 @@ public class Critter1 : ObstacleBase, IDamageable
             zapEffect.transform.position = transform.position;
             zapEffect.transform.rotation = transform.rotation;
             zapEffect.SetActive(true);
+            Observer.Notify("dropExp", expToGive);
 
             AudioManager.Instant.PlayDestroyCritterSound();
         }
@@ -101,10 +101,14 @@ public class Critter1 : ObstacleBase, IDamageable
             burnEffect.transform.position = transform.position;
             burnEffect.transform.rotation = transform.rotation;
             burnEffect.SetActive(true);
+            Observer.Notify("dropExp", expToGive);
 
             AudioManager.Instant.PlayBurnedCritterSound();
         }
 
         gameObject.SetActive(false);
+
+        if (!gameObject.activeSelf)
+            LevelManager.Instant.critterCounter++;
     }
 }

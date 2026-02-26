@@ -6,11 +6,13 @@ public class HUDManager : Singleton<HUDManager>
 {
     private Canvas canvas;
 
+    [SerializeField] private Button pauseButton;
     [SerializeField] private Slider energySlider;
     [SerializeField] private TMP_Text energyText;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private TMP_Text healthText;
-    [SerializeField] private Button pauseButton;
+    [SerializeField] private Slider expSlider;
+    [SerializeField] private TMP_Text expText;
 
     private void Start()
     {
@@ -42,5 +44,12 @@ public class HUDManager : Singleton<HUDManager>
         healthSlider.maxValue = max;
         healthSlider.value = Mathf.RoundToInt(current);
         healthText.text = healthSlider.value + "/" + healthSlider.maxValue;
+    }
+    
+    public void UpdateExpSlider(float current, float max)
+    {
+        expSlider.maxValue = max;
+        expSlider.value = Mathf.RoundToInt(current);
+        expText.text = expSlider.value + "/" + expSlider.maxValue;
     }
 }

@@ -9,8 +9,9 @@ public class Asteroid : ObstacleBase, IDamageable
     private FlashWhite flashWhite;
 
     private int lives;
-    private int maxLives;
-    private int damage;
+    private int maxLives = 5;
+    private int damage = 1;
+    private int expToGive = 1;
 
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private GameObject destroyEffect;
@@ -22,14 +23,14 @@ public class Asteroid : ObstacleBase, IDamageable
         flashWhite = GetComponent<FlashWhite>();
     }
 
-    void Start()
+    private void OnEnable()
     {
         InitAsteroid();
     }
 
-    private void OnEnable()
+    void Start()
     {
-        lives = maxLives;
+        InitAsteroid();
     }
 
     void Update()
@@ -41,7 +42,7 @@ public class Asteroid : ObstacleBase, IDamageable
     {
         spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
 
-        float pushX = Random.Range(-1f, 0);
+        float pushX = Random.Range(-1.5f, 0);
         float pushY = Random.Range(-1f, 1f);
 
         rb.linearVelocity = new Vector2(pushX, pushY);
@@ -49,9 +50,7 @@ public class Asteroid : ObstacleBase, IDamageable
         float randomScale = Random.Range(0.6f, 1f);
         transform.localScale = new Vector2(randomScale, randomScale);
 
-        maxLives = 5;
         lives = maxLives;
-        damage = 1;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -82,6 +81,10 @@ public class Asteroid : ObstacleBase, IDamageable
             flashWhite.ResetMaterialAfterDisable();
             lives = 5;  //Hard code
             gameObject.SetActive(false);
+
+            if (damageSourceTag == CONSTANT.TAG_PLAYER || damageSourceTag == CONSTANT.TAG_BULLET)
+                //Mỗi enemy lại drop lượng exp khác nhau, chỉ cần gọi .Notify("dropExp", exp) rồi truyền exp tương ứng.
+                Observer.Notify("dropExp", expToGive);
         }
         else
         {

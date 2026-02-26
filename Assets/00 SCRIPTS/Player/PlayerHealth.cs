@@ -9,6 +9,16 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     private int damage;
 
+    private void OnEnable()
+    {
+        Observer.AddListener(CONSTANT.OBSERVER_PLAYERLEVELUP, OnHealthLevelUp);
+    }
+
+    private void OnDisable()
+    {
+        Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERLEVELUP, OnHealthLevelUp);
+    }
+
     void Start()
     {
         player = GetComponent<PlayerController>();
@@ -26,6 +36,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             damageableTarget.TakeDamage(this.damage, this.gameObject.tag);
         }
+    }
+
+    private void OnHealthLevelUp(object[] datas)
+    {
+        maxHealth++;
+        health = maxHealth;
+        HUDManager.Instant.UpdateHealthSlider(health, maxHealth);
     }
 
     public void TakeDamage(int damageAmount, string damageSourceTag)
