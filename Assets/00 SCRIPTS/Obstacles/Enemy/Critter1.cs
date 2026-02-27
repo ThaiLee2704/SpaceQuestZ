@@ -31,10 +31,10 @@ public class Critter1 : ObstacleBase, IDamageable
 
     void Update()
     {
-        HandleMovement();
+        Movement();
     }
 
-    private void HandleMovement()
+    protected override void Movement()
     {
         if (moveTimer > 0)
             moveTimer -= Time.deltaTime;
@@ -59,7 +59,7 @@ public class Critter1 : ObstacleBase, IDamageable
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1080 * Time.deltaTime);
         }
         //Di chuyển theo BoostSpeed nữa
-        Movement();
+        base.Movement();
     }
 
     private void GenerateMoveInterval()

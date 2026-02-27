@@ -7,6 +7,7 @@ public class CONSTANT
     public static string TAG_CRITTER = "Critter";
     public static string TAG_BULLET = "Bullet";
     public static string TAG_BOSS = "Boss";
+    public static string TAG_ENEMY = "Enemy";
 
     public static string ANIMATION_MOVE_X = "moveX";
     public static string ANIMATION_MOVE_Y = "moveY";

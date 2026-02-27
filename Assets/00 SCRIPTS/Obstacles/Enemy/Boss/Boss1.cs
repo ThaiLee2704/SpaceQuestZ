@@ -11,7 +11,7 @@ public class Boss1 : ObstacleBase, IDamageable
     private float switchTimer;
     private int damage = 20;
     private int lives;
-    private int maxLives = 20;
+    private int maxLives = 100;
     private int expToGive = 20;
 
     [SerializeField] private GameObject destroyEffect;

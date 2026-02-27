@@ -15,6 +15,8 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioSource hitBoss;
     [SerializeField] private AudioSource bossCharge;
     [SerializeField] private AudioSource bossSpawn;
+    [SerializeField] private AudioSource hitMiniBoss;
+    [SerializeField] private AudioSource destroyMiniBoss;
     [Header("Effect UI")]
     [SerializeField] private AudioSource pause;
     [SerializeField] private AudioSource unpause;
@@ -35,6 +37,14 @@ public class AudioManager : Singleton<AudioManager>
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERDEATH, PlayDeathSound);
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERHIT, PlayHitPlayerSound);
         Observer.RemoveListener(CONSTANT.OBSERVER_PLAYERBOOST, PlayBoostSound);
+    }
+    public void PlayHitMiniBossSound()
+    {
+        PlaySource(hitMiniBoss);
+    }
+    public void PlayDestroyMiniBossSound()
+    {
+        PlaySource(destroyMiniBoss);
     }
     public void PlayBossSpawnSound()
     {

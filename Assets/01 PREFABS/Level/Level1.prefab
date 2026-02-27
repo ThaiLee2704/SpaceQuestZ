@@ -378,6 +378,11 @@ MonoBehaviour:
     spawnInterval: 2
     objectsPerWave: 10
     spawnedObjectCount: 0
+  - prefabs: {fileID: 3054574466291035056, guid: 3d585e50fe6dcb4409f36cf466d24f44, type: 3}
+    spawnTimer: 0
+    spawnInterval: 0.1
+    objectsPerWave: 50
+    spawnedObjectCount: 0
   - prefabs: {fileID: 4270722037316497020, guid: 7a56490a9bce35f4884e16cd7b5c6bc7, type: 3}
     spawnTimer: 0
     spawnInterval: 5
@@ -5533,7 +5538,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -405932655
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -1
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -5780,7 +5785,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -405932655
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 2099384810065395903, guid: 40f6cc0cec516c543b1edcf9c2b4f9d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6952,10 +6957,25 @@ MonoBehaviour:
     spawnInterval: 1.2
     objectsPerWave: 20
     spawnedObjectCount: 0
+  - prefabs: {fileID: 3012074764110882932, guid: f89b1625eec1ebd47969915fa664c5c4, type: 3}
+    spawnTimer: 0
+    spawnInterval: 0.5
+    objectsPerWave: 30
+    spawnedObjectCount: 0
   - prefabs: {fileID: 518999690304103624, guid: 449c228fb151da04abf78403759847d1, type: 3}
     spawnTimer: 0
     spawnInterval: 5
     objectsPerWave: 3
+    spawnedObjectCount: 0
+  - prefabs: {fileID: 518999690304103624, guid: 449c228fb151da04abf78403759847d1, type: 3}
+    spawnTimer: 0
+    spawnInterval: 0.1
+    objectsPerWave: 10
+    spawnedObjectCount: 0
+  - prefabs: {fileID: 3012074764110882932, guid: f89b1625eec1ebd47969915fa664c5c4, type: 3}
+    spawnTimer: 0
+    spawnInterval: 0.1
+    objectsPerWave: 50
     spawnedObjectCount: 0
   waveNumber: 0
 --- !u!1 &7304971673001022958

@@ -79,7 +79,6 @@ public class Asteroid : ObstacleBase, IDamageable
 
             AudioManager.Instant.PlayDestroyAsteroidSound();
             flashWhite.ResetMaterialAfterDisable();
-            lives = 5;  //Hard code
             gameObject.SetActive(false);
 
             if (damageSourceTag == CONSTANT.TAG_PLAYER || damageSourceTag == CONSTANT.TAG_BULLET)
