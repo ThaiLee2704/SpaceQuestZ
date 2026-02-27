@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1746404914044016108}
   - component: {fileID: 3212545533835792729}
   m_Layer: 0
-  m_Name: avatar
+  m_Name: MiniBoss_Destroy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,21 +1,36 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelSelectionManager : Singleton<LevelSelectionManager>
 {
+    [SerializeField] private List<GameObject> allLevels;
+
     private GameObject currentLevel;   // Lưu cái Level đang chạy trong scene
     private GameObject levelPrefab; // Lưu cái bản gốc Prefab để tí nữa Restart
+    private int currentLevelIndex = -1;
 
     // Hàm OpenLevel cũ (Dành cho việc chọn level từ Menu)
     public void OpenLevel(GameObject levelPrefab)
     {
-        // Logic cũ của bạn: Destroy -> Create ngay lập tức
-        // Vẫn dùng được khi đi từ Menu vào, vì lúc đó chưa có HUD nào tồn tại.
-        // Nhưng để code gọn, bạn có thể gọi Coroutine luôn cũng được, nhưng nó sẽ trễ 1 frame (không đáng kể).
+        currentLevelIndex = allLevels.IndexOf(levelPrefab);
 
         if (currentLevel != null) Destroy(currentLevel);
         this.levelPrefab = levelPrefab;
         OpenLevelAfterCleanup(levelPrefab);
+    }
+
+    public void NextLevel()
+    {
+        if (currentLevelIndex < allLevels.Count - 1)
+        {
+            currentLevelIndex++;
+
+            GameObject nextLevelPrefabs = allLevels[currentLevelIndex];
+
+
+            OpenLevel(nextLevelPrefabs);
+        }
     }
 
     // --- Hàm dành cho nút Restart ---

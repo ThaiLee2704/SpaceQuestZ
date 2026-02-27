@@ -6740,7 +6740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1539205551480454785}
   m_Layer: 0
-  m_Name: Level1
+  m_Name: Level2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6947,7 +6947,7 @@ MonoBehaviour:
   minPos: {fileID: 8345484960891780759}
   maxPos: {fileID: 2906897324019050983}
   waves:
-  - prefabs: {fileID: 3012074764110882932, guid: f89b1625eec1ebd47969915fa664c5c4, type: 3}
+  - prefabs: {fileID: 512421332900069381, guid: 7c2754a145aabba499198c13728c708d, type: 3}
     spawnTimer: 0
     spawnInterval: 1
     objectsPerWave: 10
@@ -6957,7 +6957,7 @@ MonoBehaviour:
     spawnInterval: 1
     objectsPerWave: 3
     spawnedObjectCount: 0
-  - prefabs: {fileID: 3012074764110882932, guid: f89b1625eec1ebd47969915fa664c5c4, type: 3}
+  - prefabs: {fileID: 512421332900069381, guid: 7c2754a145aabba499198c13728c708d, type: 3}
     spawnTimer: 0
     spawnInterval: 1
     objectsPerWave: 20
@@ -6974,8 +6974,8 @@ MonoBehaviour:
     spawnedObjectCount: 0
   - prefabs: {fileID: 518999690304103624, guid: 449c228fb151da04abf78403759847d1, type: 3}
     spawnTimer: 0
-    spawnInterval: 1
-    objectsPerWave: 35
+    spawnInterval: 5
+    objectsPerWave: 3
     spawnedObjectCount: 0
   - prefabs: {fileID: 518999690304103624, guid: 449c228fb151da04abf78403759847d1, type: 3}
     spawnTimer: 0
