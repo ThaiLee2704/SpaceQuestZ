@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using TreeEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Asteroid : ObstacleBase, IDamageable
 {

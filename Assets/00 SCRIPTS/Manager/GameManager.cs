@@ -38,14 +38,14 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("GameManager đã nhận diện được Player!");
     }
     
-    private void Update()
-    {
-        PressPausePanel();
-    }
+    //private void Update()
+    //{
+    //    PressPausePanel();
+    //}
 
-    private void PressPausePanel()
-    {
-        if (input.IsPausePressed)
-            UIManager.Instant.OnPauseClickedByKeyword();
-    }
+    //private void PressPausePanel()
+    //{
+    //    if (input.IsPausePressed)
+    //        UIManager.Instant.OnPauseClickedByKeyword();
+    //}
 }
