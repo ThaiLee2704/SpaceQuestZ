@@ -49,15 +49,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Asteroid
   sprites:
-  - {fileID: 2357709100146644040, guid: fa96ff2a235676245abe171d4f96140a, type: 3}
-  - {fileID: -750725228, guid: fa96ff2a235676245abe171d4f96140a, type: 3}
-  - {fileID: -2077299236, guid: fa96ff2a235676245abe171d4f96140a, type: 3}
-  - {fileID: 2007507759, guid: fa96ff2a235676245abe171d4f96140a, type: 3}
-  - {fileID: -900421929, guid: fa96ff2a235676245abe171d4f96140a, type: 3}
+  - {fileID: 5346618211676453907, guid: b9e29ad096a983547ba07afb88add33c, type: 3}
+  - {fileID: -2013496215612332534, guid: b9e29ad096a983547ba07afb88add33c, type: 3}
+  - {fileID: 7533105705287724128, guid: b9e29ad096a983547ba07afb88add33c, type: 3}
+  - {fileID: -922778775360469859, guid: b9e29ad096a983547ba07afb88add33c, type: 3}
+  - {fileID: -2682012836988400016, guid: b9e29ad096a983547ba07afb88add33c, type: 3}
   destroyEffect: {fileID: 7276893909315115390, guid: 0d17f9ea86b851b4393327606452daa6, type: 3}
-  lives: 5
 --- !u!212 &2736164481985399412
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,7 +103,8 @@ SpriteRenderer:
   m_SortingLayerID: -1185772251
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2357709100146644040, guid: fa96ff2a235676245abe171d4f96140a, type: 3}
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 5346618211676453907, guid: b9e29ad096a983547ba07afb88add33c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,7 +113,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &1114411901270722782
 CircleCollider2D:
